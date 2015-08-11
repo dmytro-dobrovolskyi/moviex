@@ -1,9 +1,9 @@
 package com.moviex.persistence.entity;
 
-import org.springframework.data.annotation.Id;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.Id;
 
 @Entity
 public class Movie {
@@ -12,6 +12,13 @@ public class Movie {
 
     @Column(name = "Title")
     private String title;
+
+    public Movie(String id, String title) {
+        this.id = id;
+        this.title = title;
+    }
+
+    private Movie() {}
 
     public String getId() {
         return id;
