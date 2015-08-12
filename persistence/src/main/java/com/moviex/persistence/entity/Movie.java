@@ -7,7 +7,9 @@ import javax.persistence.Id;
 
 @Entity
 public class Movie {
+
     @Id
+    @Column(name = "Id")
     private String id;
 
     @Column(name = "Title")

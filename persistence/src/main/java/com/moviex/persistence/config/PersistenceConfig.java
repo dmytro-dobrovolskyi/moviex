@@ -11,16 +11,14 @@ import org.springframework.jdbc.datasource.DriverManagerDataSource;
 import org.springframework.orm.jpa.JpaTransactionManager;
 import org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean;
 import org.springframework.orm.jpa.vendor.HibernateJpaVendorAdapter;
-import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 import java.util.HashMap;
 import java.util.Map;
 
 @Configuration
-@EnableTransactionManagement
 @EnableJpaRepositories("com.moviex.persistence.repository")
-@PropertySource("application.properties")
 @ComponentScan("com.moviex.persistence")
+@PropertySource("application.properties")
 public class PersistenceConfig {
 
     @Autowired
@@ -35,8 +33,7 @@ public class PersistenceConfig {
     }
 
     @Bean
-    public LocalContainerEntityManagerFactoryBean entityManagerFactory()
-    {
+    public LocalContainerEntityManagerFactoryBean entityManagerFactory() {
         LocalContainerEntityManagerFactoryBean entityManagerFactoryBean = new LocalContainerEntityManagerFactoryBean();
         entityManagerFactoryBean.setDataSource(dataSource());
         entityManagerFactoryBean.setPackagesToScan(env.getProperty("entities.to.scan"));
@@ -60,7 +57,7 @@ public class PersistenceConfig {
         jpaProperties.put("hibernate.dialect", env.getProperty("hb.dialect"));
         jpaProperties.put("hibernate.show_sql", env.getProperty("hb.showSql"));
         jpaProperties.put("hibernate.format_sql", env.getProperty("hb.formatSql"));
-        jpaProperties.put("hibernate.use_sql_comments", env.getProperty("hb.sqlComment"));
+        jpaProperties.put("hibernate.use_sql_comments", env.getProperty("hb.sqlComments"));
         jpaProperties.put("hibernate.hbm2ddl.auto", env.getProperty("hb.hbm2ddl.auto"));
         jpaProperties.put("hibernate.enable_lazy_load_no_trans", env.getProperty("hb.enableLazyLoadNoTrans"));
 

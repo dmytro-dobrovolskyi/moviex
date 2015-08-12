@@ -9,11 +9,14 @@
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>com.moviex.business</groupId>
     <artifactId>business</artifactId>
     <packaging>jar</packaging>
 
     <dependencies>
-
+        <dependency>
+            <groupId>${project.groupId}</groupId>
+            <artifactId>persistence</artifactId>
+            <version>${project.version}</version>
+        </dependency>
     </dependencies>
 </project>

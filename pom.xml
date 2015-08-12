@@ -12,6 +12,7 @@
         <module>persistence</module>
         <module>business</module>
         <module>presentation</module>
+        <module>shared-resources</module>
     </modules>
 
     <properties>
