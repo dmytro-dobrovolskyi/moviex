@@ -7,6 +7,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
+import java.util.List;
+
 @Service
 public class MovieServiceImpl implements MovieService {
 
@@ -20,8 +22,16 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
+    @Transactional(readOnly = true)
+    public List<Movie> findByTitle(String title) {
+        return movieRepository.findByTitle(title);
+    }
+
+    @Override
     @Transactional
     public void upsert(Movie movie) {
         movieRepository.save(movie);
     }
+
+
 }

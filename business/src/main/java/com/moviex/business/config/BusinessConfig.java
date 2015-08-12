@@ -8,6 +8,6 @@ import org.springframework.transaction.annotation.EnableTransactionManagement;
 
 @Configuration
 @EnableTransactionManagement
-@ComponentScan("com.moviex.business")
+@ComponentScan("com.moviex.business.service")
 @Import(PersistenceConfig.class)
 public class BusinessConfig {}
