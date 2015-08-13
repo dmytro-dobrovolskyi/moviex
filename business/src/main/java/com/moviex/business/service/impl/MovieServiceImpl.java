@@ -32,6 +32,4 @@ public class MovieServiceImpl implements MovieService {
     public void upsert(Movie movie) {
         movieRepository.save(movie);
     }
-
-
 }

@@ -47,27 +47,4 @@
             <version>1.8.2.RELEASE</version>
         </dependency>
     </dependencies>
-
-    <build>
-        <plugins>
-            <plugin>
-                <groupId>org.apache.maven.plugins</groupId>
-                <artifactId>maven-remote-resources-plugin</artifactId>
-                <version>1.5</version>
-                <configuration>
-                    <resourceBundles>
-                        <resourceBundle>com.moviex:shared-resources:${project.version}</resourceBundle>
-                    </resourceBundles>
-                </configuration>
-                <executions>
-                    <execution>
-                        <goals>
-                            <goal>process</goal>
-                        </goals>
-                    </execution>
-                </executions>
-            </plugin>
-        </plugins>
-    </build>
-
 </project>
