@@ -5,7 +5,7 @@
     <parent>
         <artifactId>moviex</artifactId>
         <groupId>com.moviex</groupId>
-        <version>1.0-SNAPSHOT</version>
+        <version>1.0</version>
     </parent>
     <modelVersion>4.0.0</modelVersion>
 
@@ -56,24 +56,20 @@
                 <artifactId>maven-war-plugin</artifactId>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
-                    <warName>moviex</warName>
                 </configuration>
             </plugin>
 
             <plugin>
                 <groupId>org.apache.tomcat.maven</groupId>
                 <artifactId>tomcat7-maven-plugin</artifactId>
+                <version>2.2</version>
                 <configuration>
-                    <url>${url}/manager/text</url>
-                    <path>/</path>
-                    <username>admin</username>
-                    <password>admin</password>
+                    <path>/${project.primary.name}</path>
                 </configuration>
             </plugin>
             <plugin>
                 <groupId>org.apache.maven.plugins</groupId>
                 <artifactId>maven-dependency-plugin</artifactId>
-                <version>2.2</version>
                 <executions>
                     <execution>
                         <id>copy-dependencies</id>

@@ -3,6 +3,7 @@ package com.moviex.persistence.config;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
+import org.springframework.context.annotation.PropertySource;
 import org.springframework.core.env.Environment;
 import org.springframework.data.jpa.repository.config.EnableJpaRepositories;
 import org.springframework.jdbc.datasource.DriverManagerDataSource;
@@ -15,6 +16,7 @@ import java.util.Map;
 
 @Configuration
 @EnableJpaRepositories("com.moviex.persistence.repository")
+@PropertySource("classpath:application.properties")
 public class PersistenceConfig {
 
     @Autowired
