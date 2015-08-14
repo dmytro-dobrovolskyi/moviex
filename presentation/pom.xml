@@ -57,11 +57,14 @@
                 <version>2.6</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <!-- Temporary for developing purpose
                     <warSourceIncludes>
                         static/**/*min.css,
                         static/**/*min.js,
-                        static/views/*.html
+                        static/views/*.html,
+                        static/styles/images/*
                     </warSourceIncludes>
+                    -->
                 </configuration>
             </plugin>
 
@@ -71,7 +74,7 @@
                 <version>2.2</version>
                 <configuration>
                     <path>/moviex</path>
-                    <contextReloadable>false</contextReloadable>
+                    <contextReloadable>true</contextReloadable>
                 </configuration>
             </plugin>
 
