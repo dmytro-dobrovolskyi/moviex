@@ -1,8 +1,10 @@
 {
-  "name": "moviex",
-  "dependencies": {
-    "angular": "latest",
-    "requirejs": "latest",
-    "requirejs-domready": "latest"
-  }
+    "name": "moviex",
+    "dependencies": {
+        "angular": "latest",
+        "bootstrap": "latest",
+        "jquery": "latest",
+        "requirejs": "latest",
+        "requirejs-domready": "latest"
+    }
 }

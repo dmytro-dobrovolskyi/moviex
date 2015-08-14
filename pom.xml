@@ -15,7 +15,6 @@
     </modules>
 
     <properties>
-        <project.primary.name>moviex</project.primary.name>
         <spring.version>4.1.7.RELEASE</spring.version>
         <java.version>1.8</java.version>
     </properties>

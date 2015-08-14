@@ -57,6 +57,11 @@
                 <version>2.6</version>
                 <configuration>
                     <failOnMissingWebXml>false</failOnMissingWebXml>
+                    <warSourceIncludes>
+                        static/**/*min.css,
+                        static/**/*min.js,
+                        static/views/*.html
+                    </warSourceIncludes>
                 </configuration>
             </plugin>
 
@@ -65,8 +70,8 @@
                 <artifactId>tomcat7-maven-plugin</artifactId>
                 <version>2.2</version>
                 <configuration>
-                    <path>/${project.primary.name}</path>
-                    <contextReloadable>true</contextReloadable>
+                    <path>/moviex</path>
+                    <contextReloadable>false</contextReloadable>
                 </configuration>
             </plugin>
 
@@ -84,7 +89,38 @@
                     </execution>
                 </executions>
             </plugin>
+
+            <plugin>
+                <groupId>com.samaxes.maven</groupId>
+                <artifactId>minify-maven-plugin</artifactId>
+                <version>1.7.2</version>
+                <executions>
+                    <execution>
+                        <id>minify</id>
+                        <phase>process-resources</phase>
+                        <goals>
+                            <goal>minify</goal>
+                        </goals>
+                        <configuration>
+                            <charset>utf-8</charset>
+                            <jsEngine>CLOSURE</jsEngine>
+                            <skipMerge>true</skipMerge>
+
+                            <cssSourceDir>static/styles</cssSourceDir>
+                            <cssTargetDir>static/styles</cssTargetDir>
+                            <cssSourceIncludes>
+                                <cssSourceInclude>*.css</cssSourceInclude>
+                            </cssSourceIncludes>
+
+                            <jsSourceDir>static/scripts</jsSourceDir>
+                            <jsTargetDir>static/scripts</jsTargetDir>
+                            <jsSourceIncludes>
+                                <jsSourceInclude>*.js</jsSourceInclude>
+                            </jsSourceIncludes>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
         </plugins>
     </build>
-
 </project>
