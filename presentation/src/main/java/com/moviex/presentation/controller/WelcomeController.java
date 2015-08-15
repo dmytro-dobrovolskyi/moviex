@@ -8,6 +8,6 @@ public class WelcomeController {
 
     @RequestMapping({"/", "/home"})
     public String showWelcomePage() {
-        return "static/views/index.html";
+        return "client/index.html";
     }
 }

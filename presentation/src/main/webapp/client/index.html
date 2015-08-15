@@ -8,11 +8,11 @@
 
     <title>Moviex</title>
 
-    <link href="static/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link href="static/styles/welcome.css" rel="stylesheet">
+    <link href="client/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
+    <link href="client/assets/css/welcome.css" rel="stylesheet">
 </head>
 
-<body>
+<body id="moviex" ng-controller="WelcomeController">
 
 <nav class="navbar navbar-inverse navbar-fixed-top" role="navigation">
     <div class="container">
@@ -42,17 +42,16 @@
     </div>
 </nav>
 
-
-
-    <div class="col-md-8">
-        <div class="input-group input-group-lg">
-
-            <input type="text" class="form-control" placeholder="Enter movie title">
-        </div>
+<div class="col-md-8">
+    <div class="input-group input-group-lg">
+        <input type="text" class="form-control" placeholder="Enter movie title" ng-model="tryIt">
+        <input type="text" class="form-control" placeholder="Enter movie title" ng-model="tryIt">
     </div>
+</div>
 
+<div ng-view></div>
 
-    <script data-main="static/scripts/main.js" src="static/lib/requirejs/require.js"></script>
+<script data-main="client/src/bootstrap.js" src="client/lib/requirejs/require.js"></script>
 
 </body>
 </html>

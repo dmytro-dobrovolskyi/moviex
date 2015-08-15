@@ -17,7 +17,7 @@ public class PresentationConfig extends WebMvcConfigurerAdapter {
     @Override
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry
-                .addResourceHandler("/static/**")
-                .addResourceLocations("/static/");
+                .addResourceHandler("/client/**")
+                .addResourceLocations("/client/");
     }
 }
