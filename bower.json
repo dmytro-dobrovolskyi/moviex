@@ -3,8 +3,10 @@
     "dependencies": {
         "angular": "latest",
         "bootstrap": "latest",
-        "jquery": "latest",
         "requirejs": "latest",
-        "angular-route" : "latest"
+        "angular-ui-router" : "latest",
+        "angular-material" : "latest",
+        "angular-bootstrap" : "latest",
+        "components-font-awesome" : "latest"
     }
 }

@@ -1,7 +1,8 @@
 body {
-    margin-top: 50px;
+    font-family: 'Lora', serif;
+    font-size: 18px;
 }
-.welcome-layout {
+.main-layout {
     background: url('images/welcome.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;

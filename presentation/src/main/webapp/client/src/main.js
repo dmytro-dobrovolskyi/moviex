@@ -1,25 +1,27 @@
-(function (define) {
+(function (define, angular) {
 
     "use strict";
 
     define(
         [
-            "welcome/WelcomeModule",
-            "ngRoute"
+            "start/StartModule",
+            "movie/MovieModule",
+            "util/StateManager"
         ],
-        function (WelcomeModule) {
+        function (WelcomeModule, MovieModule, StateManager) {
 
-            var appName  = "moviex";
-            var app =  angular.module("moviex",
-                [WelcomeModule, "ngRoute"])
-                .config(function($routeProvider) {
-                    $routeProvider
-                        .when("/search", {
-                            templateUrl : "client/assets/views/search.view.html"
-                        })
-                });
+            var appName = "moviex";
+            var app = angular.module(appName,
+                [
+                    "ui.router",
+                    "ngMaterial",
+                    "ui.bootstrap",
+                    WelcomeModule,
+                    MovieModule
+                ])
+                .config(StateManager);
 
             return appName;
         }
     );
-})(define);
+})(define, angular);
