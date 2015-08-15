@@ -1,25 +1,23 @@
-(function (define) {
+(function (define, angular) {
 
     "use strict";
 
     define(
         [
             "welcome/WelcomeModule",
-            "ngRoute"
+            "welcome/WelcomeStateManager"
         ],
-        function (WelcomeModule) {
+        function (WelcomeModule, WelcomeStateManager) {
 
-            var appName  = "moviex";
-            var app =  angular.module("moviex",
-                [WelcomeModule, "ngRoute"])
-                .config(function($routeProvider) {
-                    $routeProvider
-                        .when("/search", {
-                            templateUrl : "client/assets/views/search.view.html"
-                        })
-                });
+            var appName = "moviex";
+            var app = angular.module(appName,
+                [
+                    "ui.router",
+                    WelcomeModule
+                ])
+                .config(WelcomeStateManager);
 
             return appName;
         }
     );
-})(define);
+})(define, angular);
