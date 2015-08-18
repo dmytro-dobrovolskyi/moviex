@@ -14,7 +14,6 @@
             var app = angular.module(appName,
                 [
                     "ui.router",
-                    "ngMaterial",
                     "ui.bootstrap",
                     WelcomeModule,
                     MovieModule

@@ -5,7 +5,6 @@
         "bootstrap": "latest",
         "requirejs": "latest",
         "angular-ui-router" : "latest",
-        "angular-material" : "latest",
         "angular-bootstrap" : "latest",
         "components-font-awesome" : "latest"
     }

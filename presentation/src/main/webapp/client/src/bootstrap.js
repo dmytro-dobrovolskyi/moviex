@@ -8,9 +8,6 @@
         paths: {
             "angular": "../lib/angular/angular.min",
             "uiRouter": "../lib/angular-ui-router/release/angular-ui-router.min",
-            "ngMaterial": "../lib/angular-material/angular-material.min",
-            "ngAria": "../lib/angular-aria/angular-aria.min",
-            "ngAnimate": "../lib/angular-animate/angular-animate.min",
             "ngBootstrap": "../lib/angular-bootstrap/ui-bootstrap-tpls.min"
         },
         shim: {
@@ -20,15 +17,6 @@
             "uiRouter": {
                 deps: ["angular"]
             },
-            "ngMaterial": {
-                deps: ["angular"]
-            },
-            "ngAria": {
-                deps: ["angular"]
-            },
-            "ngAnimate": {
-                deps: ["angular"]
-            },
             "ngBootstrap": {
                 deps: ["angular"]
             }
@@ -36,7 +24,7 @@
     });
 
 
-    define(["angular", "uiRouter", "ngMaterial", "ngAria", "ngAnimate", "ngBootstrap"],
+    define(["angular", "uiRouter", "ngBootstrap"],
         function (angular) {
 
         /**

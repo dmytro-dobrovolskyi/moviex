@@ -6,7 +6,7 @@
         [
             "start/controller/HomeController"
         ],
-        function (HomeController, NavbarController) {
+        function (HomeController) {
 
             var moduleName = "StartModule";
 

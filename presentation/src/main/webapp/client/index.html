@@ -6,7 +6,7 @@
     <title>Moviex</title>
 
     <link href="client/lib/bootstrap/dist/css/bootstrap.min.css" rel="stylesheet">
-    <link rel="stylesheet" href="client/lib/angular-material/angular-material.min.css">
+    <link rel="stylesheet" href="client/lib/bootstrap/dist/css/bootstrap.min.css">
     <link rel="stylesheet" href="client/lib/components-font-awesome/css/font-awesome.min.css">
     <link rel="stylesheet" href="client/assets/css/welcome.css">
     <link rel='stylesheet' href='http://fonts.googleapis.com/css?family=Lora'>
@@ -14,6 +14,9 @@
 
 <body id="moviex" class="main-layout">
 
+<div ui-view="navbar"></div>
+
+<div ui-view="container"></div>
 
 <script data-main="client/src/bootstrap.js" src="client/lib/requirejs/require.js"></script>
 

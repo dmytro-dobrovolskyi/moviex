@@ -10,17 +10,25 @@
                 $urlRouterProvider.otherwise("/home");
 
                 $stateProvider
-                    .state('home', {
+                    .state("root", {
                         url: "/home",
-                        templateUrl: "client/assets/views/navbar.view.html",
-                        controller: "HomeController"
+                        views: {
+                            navbar: {
+                                templateUrl: "client/assets/views/navbar.view.html",
+                                controller : "HomeController"
+                            }
+                        }
                     })
-                    .state("find-movie", {
-                        url: "/find-movie",
-                        templateUrl: "client/assets/views/find-movie.view.html",
-                        controller: "FindMovieController"
+                    .state("root.find-movie", {
+                        url: "^/find-movie",
+                        views: {
+                            "container@": {
+                                templateUrl: "client/assets/views/find-movie.view.html",
+                                controller: "FindMovieController"
+                            }
+                        }
                     });
-            };
+            }
         }
     )
 })(define);

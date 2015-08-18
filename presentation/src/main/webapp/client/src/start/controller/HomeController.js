@@ -6,10 +6,9 @@
         [],
         function () {
             var HomeController = function($scope, $log) {
-                $log.info("HomeController");
                 $scope.isCollapsed = true;
+                $log.info("Home Controller");
             };
-
             return ["$scope", "$log", HomeController];
         }
     );
