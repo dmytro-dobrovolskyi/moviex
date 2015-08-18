@@ -1,11 +1,27 @@
 body {
     font-family: 'Lora', serif;
     font-size: 18px;
+    padding-top: 100px;
 }
+
+h1 {
+    font-family: 'Fontdiner Swanky', cursive;
+}
+
+.container {
+    background-color: #efe5ca;
+    box-shadow: 0 0 30px black;
+}
+
 .main-layout {
     background: url('images/background.jpg') no-repeat center center fixed;
     -webkit-background-size: cover;
     -moz-background-size: cover;
     background-size: cover;
     -o-background-size: cover;
+}
+
+.nav-icon {
+    color: #9d9d9d;
+    font-size: 1.5em;
 }
