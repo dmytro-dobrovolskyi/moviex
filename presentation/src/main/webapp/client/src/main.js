@@ -15,6 +15,8 @@
                 [
                     "ui.router",
                     "ui.bootstrap",
+                    "ngResource",
+                    "spring-data-rest",
                     WelcomeModule,
                     MovieModule
                 ])

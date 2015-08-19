@@ -8,7 +8,9 @@
         paths: {
             "angular": "../lib/angular/angular.min",
             "uiRouter": "../lib/angular-ui-router/release/angular-ui-router.min",
-            "ngBootstrap": "../lib/angular-bootstrap/ui-bootstrap-tpls.min"
+            "ngBootstrap": "../lib/angular-bootstrap/ui-bootstrap-tpls.min",
+            "ngResource": "../lib/angular-resource/angular-resource.min",
+            "ngSpingHateoas" : "../lib/angular-spring-data-rest/dist/angular-spring-data-rest.min"
         },
         shim: {
             "angular": {
@@ -19,12 +21,18 @@
             },
             "ngBootstrap": {
                 deps: ["angular"]
+            },
+            "ngResource": {
+                deps: ["angular"]
+            },
+            "ngSpingHateoas": {
+                deps: ["ngResource"]
             }
         }
     });
 
 
-    define(["angular", "uiRouter", "ngBootstrap"],
+    define(["angular", "uiRouter", "ngBootstrap", "ngResource", "ngSpingHateoas"],
         function (angular) {
 
         /**

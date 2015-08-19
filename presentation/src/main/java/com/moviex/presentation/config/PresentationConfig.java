@@ -11,7 +11,7 @@ import org.springframework.web.servlet.config.annotation.WebMvcConfigurerAdapter
 @Configuration
 @EnableWebMvc
 @ComponentScan("com.moviex.presentation.controller")
-@Import(BusinessConfig.class)
+@Import({BusinessConfig.class, RestConfig.class})
 public class PresentationConfig extends WebMvcConfigurerAdapter {
 
     @Override
