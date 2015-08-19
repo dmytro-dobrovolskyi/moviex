@@ -11,18 +11,19 @@
 
                 $stateProvider
                     .state("root", {
-                        url: "",
+                        url: "/",
                         views: {
                             navbar: {
                                 templateUrl: "client/assets/views/start/navbar.view.html",
-                                controller: function ($scope) {
+                                controller: function ($log, $scope) {
+                                    $log.info("NavbarController");
                                     $scope.isCollapsed = true;
                                 }
                             }
                         }
                     })
                     .state("root.home", {
-                        url: "/home",
+                        url: "^/home",
                         views: {
                             "container@": {
                                 templateUrl: "client/assets/views/start/home.view.html",
@@ -31,7 +32,7 @@
                         }
                     })
                     .state("root.find-movie", {
-                        url: "/find-movie",
+                        url: "^/find-movie",
                         views: {
                             "container@": {
                                 templateUrl: "client/assets/views/movie/find-movie.view.html",

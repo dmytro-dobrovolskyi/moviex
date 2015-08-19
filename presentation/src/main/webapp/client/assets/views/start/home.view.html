@@ -6,3 +6,22 @@
 <div class="row">
     <h2 class="lead text-center">Looking for a good movie? I will help!</h2>
 </div>
+
+<div class="row">
+    <div class="col-md-10 col-md-offset-1">
+        <carousel interval="5000">
+            <slide ng-repeat="slide in slides" active="slide.active">
+                <img ng-src="{{slide.image}}">
+            </slide>
+        </carousel>
+    </div>
+</div>
+
+<div class="row">
+    <div class="col-md-6 col-md-offset-3 text-center">
+        <button class="btn btn-lg btn-default">Take the Tour</button>
+        <a ui-sref="root.find-movie">
+            <button class="btn btn-lg btn-primary">Find movie</button>
+        </a>
+    </div>
+</div>

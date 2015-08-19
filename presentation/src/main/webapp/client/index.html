@@ -18,7 +18,13 @@
 <div ui-view="navbar"></div>
 
 <div class="container content">
-    <div ui-view="container"></div>
+    <div ng-hide="isLoaded" class="row">
+        <div class="col-md-2 col-md-offset-5 text-center">
+            <i class="fa fa-spinner fa-spin fa-5x"></i>
+        </div>
+    </div>
+
+    <div ng-show="isLoaded" ui-view="container"></div>
 </div>
 
 <script data-main="client/src/bootstrap.js" src="client/lib/requirejs/require.js"></script>

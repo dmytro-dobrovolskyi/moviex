@@ -5,11 +5,25 @@
     define(
         [],
         function () {
-            var HomeController = function($scope, $log) {
+            var HomeController = function ($rootScope, $scope, $log) {
+                $log.info("HomeController");
                 $scope.isCollapsed = true;
-                $log.info("Home Controller");
+
+                $scope.slides =
+                    [
+                        {
+                            image: "client/assets/css/images/slides/game-of-thrones.jpg"
+                        },
+                        {
+                            image: "client/assets/css/images/slides/hannibal.jpg"
+                        },
+                        {
+                            image: "client/assets/css/images/slides/true-detective.jpg"
+                        }
+                    ];
+                $rootScope.isLoaded = true;
             };
-            return ["$scope", "$log", HomeController];
+            return ["$rootScope", "$scope", "$log", HomeController];
         }
     );
 })(define);

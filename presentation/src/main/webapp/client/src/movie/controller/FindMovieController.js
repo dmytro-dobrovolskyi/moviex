@@ -5,11 +5,11 @@
     define(
         [],
         function () {
-            var FindMovieController = function($scope, $log) {
-                $log.debug("In FindMovieController");
+            var FindMovieController = function($rootScope, $scope, $log) {
+                $log.debug("FindMovieController");
+                $rootScope.isLoaded = true;
             };
-
-            return ["$scope", "$log", FindMovieController];
+            return ["$rootScope", "$scope", "$log", FindMovieController];
         }
     );
 })(define);
