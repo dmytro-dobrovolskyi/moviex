@@ -5,10 +5,16 @@
 <div class="row">
     <form>
         <div class="col-md-8 col-md-offset-2 form-group">
-            <input type="text" class="form-control input-lg" placeholder="Movie title" required>
+            <input type="text" class="form-control input-lg" placeholder="Movie title" required ng-model="title">
         </div>
         <div class="col-md-2 col-md-offset-5 text-center">
-            <button type="submit" class="btn btn-lg btn-success">Go</button>
+            <button type="submit" class="btn btn-lg btn-success" ng-click="findMovie()">Go</button>
         </div>
     </form>
+</div>
+
+<div class="row">
+    <div class="col-md-12 text-center">
+        <p class="lead">{{movies}}</p>
+    </div>
 </div>

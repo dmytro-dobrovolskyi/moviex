@@ -4,14 +4,16 @@
 
     define(
         [
-            "movie/controller/FindMovieController"
+            "movie/controller/FindMovieController",
+            "movie/service/model/Movie"
         ],
-        function (FindMovieController) {
+        function (FindMovieController, Movie) {
 
             var moduleName = "MovieModule";
 
             angular
                 .module(moduleName, [])
+                .factory("Movie", Movie)
                 .controller("FindMovieController", FindMovieController);
 
             return moduleName;
