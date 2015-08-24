@@ -2,21 +2,21 @@ package com.moviex.persistence.entity.movie;
 
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
-import lombok.Data;
-import lombok.Getter;
-import lombok.Setter;
+import lombok.*;
 
 import javax.persistence.*;
 
-@Entity
-@JsonIgnoreProperties(ignoreUnknown = true)
-@Getter
 @Data
+@Entity
 @Table(name = "\"MovieSearchMetadata\"")
+@Getter
+@NoArgsConstructor(access = AccessLevel.PRIVATE)
+@EqualsAndHashCode(of = "imdbID")
+@JsonIgnoreProperties(ignoreUnknown = true)
 public class MovieSearchMetadata {
 
     @Id
-    @Setter
+    @Setter(AccessLevel.PRIVATE)
     @Column(name = "\"Id\"")
     private String imdbID;
 
@@ -32,13 +32,14 @@ public class MovieSearchMetadata {
     @Column(name = "\"Poster\"")
     private String poster;
 
-    @OneToOne(mappedBy = "movieSearchMetadata")
+    @Column(name = "\"ImdbRating\"")
+    @Setter
+    private String imdbRating;
+
+    @OneToOne(fetch = FetchType.LAZY)
+    @PrimaryKeyJoinColumn
     @Setter
     private Movie movie;
-
-    public String getImdbID() {
-        return imdbID;
-    }
 
     @JsonProperty("Title")
     public void setTitle(String title) {
@@ -58,9 +59,5 @@ public class MovieSearchMetadata {
     @JsonProperty("Poster")
     public void setPoster(String poster) {
         this.poster = poster;
-    }
-
-    public void setMovie(Movie movie) {
-        this.movie = movie;
     }
 }
