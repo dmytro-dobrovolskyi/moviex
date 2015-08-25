@@ -9,12 +9,12 @@ import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.bind.annotation.ResponseStatus;
 
 @ControllerAdvice
-public class MovieControllerAdvice {
+public class ExceptionHandlingAdvice {
 
     @ResponseBody
     @ExceptionHandler(MovieRequestFailedException.class)
     @ResponseStatus(HttpStatus.EXPECTATION_FAILED)
-    VndErrors userNotFoundExceptionHandler(MovieRequestFailedException ex) {
+    VndErrors movieRequestFailedExceptionHandler(MovieRequestFailedException ex) {
         return new VndErrors("error", ex.getMessage());
     }
 }

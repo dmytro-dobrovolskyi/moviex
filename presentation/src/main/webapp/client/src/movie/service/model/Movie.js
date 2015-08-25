@@ -10,7 +10,7 @@
                     "movie", null,
                     {
                         findByTitle: {method: "GET", url: "movie/search/by-title"},
-                        requestAndSave: {method: "POST", url: "movie/request-and-save"}
+                        requestByWordAndPersist: {method: "POST", url: "movie/persistence/request/by-word"}
                     });
             };
             return ["$resource", "$log", Movie];

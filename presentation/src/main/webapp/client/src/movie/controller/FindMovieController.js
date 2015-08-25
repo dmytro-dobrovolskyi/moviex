@@ -21,9 +21,9 @@
 
                         var titleWords = $scope.title.split(" ");
 
-                        if (getHeaders().request && titleWords.length > 1) {
+                        if (getHeaders().request === "true" && titleWords.length > 1) {
                             $log.debug("Retrieving...");
-                            Movie.requestAndSave(titleWords, function (result) {
+                            Movie.requestByWordAndPersist(titleWords, function (result) {
                                 $log.debug(result);
                             })
                         }

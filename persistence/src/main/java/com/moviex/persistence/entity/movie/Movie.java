@@ -42,7 +42,7 @@ public class Movie {
     @Setter
     private String imdbVotes;
 
-    @OneToOne(cascade = CascadeType.ALL, mappedBy = "movie")
+    @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "movie")
     @Setter
     private MovieSearchMetadata movieSearchMetadata;
 

@@ -3,6 +3,7 @@ package com.moviex.business.service.impl;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.fasterxml.jackson.databind.ObjectMapper;
+import com.moviex.business.exception.MovieRequestFailedException;
 import com.moviex.business.service.MovieService;
 import com.moviex.persistence.entity.movie.Movie;
 import com.moviex.persistence.entity.movie.MovieSearchMetadata;
@@ -22,11 +23,9 @@ import java.io.IOException;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
-import java.util.concurrent.ExecutionException;
 import java.util.concurrent.Future;
 import java.util.function.Function;
 import java.util.stream.Collectors;
-import java.util.stream.StreamSupport;
 
 @Service
 public class MovieServiceImpl implements MovieService {
@@ -63,8 +62,9 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    public void upsertWhenReady(List<Future<? extends Iterable<Movie>>> futureMovieList) {
-        movieRepository.save(toMovies(futureMovieList));
+    @Transactional
+    public void upsert(Iterable<Movie> movies) {
+        movieRepository.save(movies);
     }
 
 
@@ -110,23 +110,8 @@ public class MovieServiceImpl implements MovieService {
             return objectMapper.readValue(dataToMap, mappedObjClass);
         } catch (IOException ex) {
             logger.error(ex.getMessage());
-            throw new AssertionError(ex);
+            throw new MovieRequestFailedException(dataToMap);
         }
-
-    }
-
-    private List<Movie> toMovies(List<Future<? extends Iterable<Movie>>> movieFutureList) {
-        return movieFutureList
-                .stream()
-                .flatMap(futureMovies -> {
-                    try {
-                        return StreamSupport.<Movie>stream(futureMovies.get().spliterator(), false);
-                    } catch (InterruptedException | ExecutionException ex) {
-                        logger.error(ex.getMessage());
-                        throw new AssertionError(ex);
-                    }
-                })
-                .collect(Collectors.toList());
     }
 
     @Getter

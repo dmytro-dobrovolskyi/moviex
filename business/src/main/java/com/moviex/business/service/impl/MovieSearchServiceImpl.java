@@ -12,7 +12,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
-import java.util.Comparator;
 import java.util.List;
 import java.util.Set;
 import java.util.stream.Collectors;
@@ -32,7 +31,7 @@ public class MovieSearchServiceImpl implements MovieSearchService {
     @Transactional
     public MovieSearchResultDto findByTitle(String title) {
 
-        List<MovieSearchMetadata> searchResult = movieSearchMetadataRepository.findByTitleContainingIgnoreCaseOrderByImdbRatingDesc(title);
+        List<MovieSearchMetadata> searchResult = movieSearchMetadataRepository.findByTitleContainingIgnoreCase(title);
         Boolean isRequestRequired = false;
 
         if (searchResult.isEmpty()) {
@@ -41,7 +40,6 @@ public class MovieSearchServiceImpl implements MovieSearchService {
                     movies
                             .stream()
                             .map(Movie::getMovieSearchMetadata)
-                            .sorted(Comparator.comparing(MovieSearchMetadata::getImdbRating).reversed())
                             .collect(Collectors.toList())
             );
             movieService.upsertAsync(movies);

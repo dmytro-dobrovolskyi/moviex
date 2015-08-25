@@ -3,7 +3,6 @@ package com.moviex.business.service;
 import com.moviex.persistence.entity.movie.Movie;
 import org.springframework.stereotype.Service;
 
-import java.util.List;
 import java.util.Set;
 import java.util.concurrent.Future;
 
@@ -14,9 +13,9 @@ public interface MovieService {
 
     void upsert(Movie movie);
 
-    void upsertAsync(Iterable<Movie> movies);
+    void upsert(Iterable<Movie> movies);
 
-    void upsertWhenReady(List<Future<? extends Iterable<Movie>>> futureMovies);
+    void upsertAsync(Iterable<Movie> movies);
 
     Future<Set<Movie>> requestByTitleAsync(String title);
 
