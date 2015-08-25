@@ -6,10 +6,10 @@ import lombok.*;
 
 import javax.persistence.*;
 
-@Data
 @Entity
 @Table(name = "\"MovieSearchMetadata\"")
 @Getter
+@Setter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @EqualsAndHashCode(of = "imdbID")
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -33,12 +33,10 @@ public class MovieSearchMetadata {
     private String poster;
 
     @Column(name = "\"ImdbRating\"")
-    @Setter
     private String imdbRating;
 
     @OneToOne(fetch = FetchType.LAZY)
     @PrimaryKeyJoinColumn
-    @Setter
     private Movie movie;
 
     @JsonProperty("Title")
@@ -59,5 +57,25 @@ public class MovieSearchMetadata {
     @JsonProperty("Poster")
     public void setPoster(String poster) {
         this.poster = poster;
+    }
+
+    @JsonProperty("title")
+    public String getTitle() {
+        return title;
+    }
+
+    @JsonProperty("year")
+    public String getYear() {
+        return year;
+    }
+
+    @JsonProperty("poster")
+    public String getPoster() {
+        return poster;
+    }
+
+    @JsonProperty("type")
+    public String getType() {
+        return type;
     }
 }

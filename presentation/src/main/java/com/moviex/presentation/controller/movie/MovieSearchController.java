@@ -16,6 +16,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 @RepositoryRestController
@@ -34,7 +35,7 @@ public class MovieSearchController {
     @RequestMapping(value = "/by-title")
     public
     @ResponseBody
-    Resources<Resource> findByTitle(@RequestParam String title) {
+    Resources<Resource> findByTitle(@RequestParam String title) throws ExecutionException, InterruptedException {
 
         return new Resources<Resource>(
                 movieSearchService

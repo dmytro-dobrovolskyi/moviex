@@ -13,8 +13,12 @@
     </form>
 </div>
 
-<div class="row">
-    <div class="col-md-12 text-center">
-        <p class="lead">{{movies}}</p>
+<div class="row" ng-if="movies">
+    <div class="col-md-10 col-md-offset-1 text-center" style="background-color: #e0e0e0; margin-top:20px; padding-bottom: 20px;">
+        <div ng-repeat="movie in movies">
+            <h3>{{movie.title}}</h3>
+            <h3>{{movie.year}}</h3>
+            <img ng-src="{{movie.poster}}">
+        </div>
     </div>
 </div>

@@ -13,6 +13,8 @@ import lombok.Setter;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
+import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
@@ -22,9 +24,12 @@ import java.util.Arrays;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
+import java.util.concurrent.ExecutionException;
+import java.util.concurrent.Future;
 import java.util.function.Consumer;
 import java.util.function.Function;
 import java.util.stream.Collectors;
+import java.util.stream.Stream;
 
 @Service
 public class MovieSearchServiceImpl implements MovieSearchService {
@@ -46,37 +51,44 @@ public class MovieSearchServiceImpl implements MovieSearchService {
 
     @Override
     @Transactional
-    public Set<MovieSearchMetadata> findByTitle(String title) {
+    public Set<MovieSearchMetadata> findByTitle(String title) throws InterruptedException, ExecutionException {
 
         Set<MovieSearchMetadata> searchResult = movieSearchMetadataRepository.findByTitleContainingIgnoreCase(title);
 
         if (searchResult.isEmpty()) {
             String titleMatchesRegex = "(?i).*" + title + ".*";
 
-            Arrays
-                    .stream(title.split(" "))
-                    .forEach(retrieveAndSave(searchResult, titleMatchesRegex));
+            Stream
+                    .concat(Stream.of(title), Arrays.stream(title.split(" ")))
+                    .forEach(retrieveAndSave(searchResult, titleMatchesRegex).get());
         }
         return searchResult;
     }
 
-    public Consumer<String> retrieveAndSave(Set<MovieSearchMetadata> searchResult, String titleMatchesRegex) {
-        return word -> {
+    @Async
+    public Future<Consumer<String>> retrieveAndSave(Set<MovieSearchMetadata> searchResult, String titleMatchesRegex) {
+        return new AsyncResult<>(word -> {
             RequestResultHolder requestResult = restTemplate.getForObject(IMDB_URL + "/?s=" + word, RequestResultHolder.class);
 
             if (requestResult.isSuccess) {
-                movieRepository.save(
-                        requestResult.imdbIdList
-                                .stream()
-                                .map(getAndMap(searchResult, titleMatchesRegex))
-                                .collect(Collectors.toCollection(HashSet::new))
-                );
+                try {
+                    Set<Movie> movies = requestResult.imdbIdList
+                            .stream()
+                            .map(getAndMap(searchResult, titleMatchesRegex).get())
+                            .collect(Collectors.toCollection(HashSet::new));
+
+                    new Thread(() -> movieRepository.save(movies)).start();     //saving begins in background thread
+                } catch (InterruptedException | ExecutionException ex) {
+                    ex.printStackTrace();
+                }
             }
-        };
+        });
     }
 
-    private Function<ImdbIdHolder, Movie> getAndMap(Set<MovieSearchMetadata> searchResult, String titleMatchesRegex) {
-        return imdbId -> {
+    @Async
+    private Future<Function<ImdbIdHolder, Movie>> getAndMap(Set<MovieSearchMetadata> searchResult, String titleMatchesRegex) {
+
+        return new AsyncResult<>(imdbId -> {
             String requestResult = restTemplate.getForObject(IMDB_URL + "/?i=" + imdbId, String.class);
 
             Movie movie = mapFromString(requestResult, Movie.class);
@@ -89,7 +101,7 @@ public class MovieSearchServiceImpl implements MovieSearchService {
                 searchResult.add(searchMetadata);
             }
             return movie;
-        };
+        });
     }
 
     private <T> T mapFromString(String dataToMap, Class<? extends T> mappedObjClass) {
