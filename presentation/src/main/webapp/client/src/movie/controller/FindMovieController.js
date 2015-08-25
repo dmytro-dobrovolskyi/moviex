@@ -11,15 +11,24 @@
 
                 $scope.title = null;
                 $scope.findMovie = function () {
-                    var response = Movie.findByTitle({title: $scope.title});
+                    var response = Movie.findByTitle({title: $scope.title}, function (data, getHeaders) {
+                        SpringDataRestAdapter
+                            .process(data.$promise)
+                            .then(function (processedResponse) {
+                                $log.debug(processedResponse);
+                                $scope.movies = processedResponse._embeddedItems;
+                            });
 
-                    $log.debug(response);
-                    SpringDataRestAdapter
-                        .process(response.$promise)
-                        .then(function(processedResponse) {
-                            $scope.movies = processedResponse._embeddedItems;
-                        })
+                        var titleWords = $scope.title.split(" ");
 
+                        if (getHeaders().request && titleWords.length > 1) {
+                            $log.debug("Retrieving...");
+                            Movie.requestAndSave(titleWords, function (result) {
+                                $log.debug(result);
+                            })
+                        }
+
+                    })
                 }
             };
             return ["$rootScope", "$scope", "$log", "Movie", "SpringDataRestAdapter", FindMovieController];

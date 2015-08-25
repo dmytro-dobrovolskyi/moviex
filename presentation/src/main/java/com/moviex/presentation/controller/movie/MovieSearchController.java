@@ -1,5 +1,6 @@
 package com.moviex.presentation.controller.movie;
 
+import com.moviex.business.dto.MovieSearchResultDto;
 import com.moviex.business.service.MovieSearchService;
 import com.moviex.persistence.entity.movie.MovieSearchMetadata;
 import com.moviex.persistence.repository.MovieRepository;
@@ -12,11 +13,12 @@ import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.hateoas.EntityLinks;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
+import org.springframework.http.HttpHeaders;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
-import org.springframework.web.bind.annotation.ResponseBody;
 
-import java.util.concurrent.ExecutionException;
 import java.util.stream.Collectors;
 
 @RepositoryRestController
@@ -30,16 +32,19 @@ public class MovieSearchController {
 
     @Autowired
     @Qualifier(value = "entityLinks")   //RepositoryEntityLinks injects here
-            EntityLinks entityLinks;
+    private EntityLinks entityLinks;
 
     @RequestMapping(value = "/by-title")
-    public
-    @ResponseBody
-    Resources<Resource> findByTitle(@RequestParam String title) throws ExecutionException, InterruptedException {
+    public ResponseEntity<Resources<Resource>> findByTitle(@RequestParam String title) {
 
-        return new Resources<Resource>(
-                movieSearchService
-                        .findByTitle(title)
+        MovieSearchResultDto searchResult = movieSearchService.findByTitle(title);
+
+        HttpHeaders httpHeaders = new HttpHeaders();
+        httpHeaders.add("request", searchResult.getIsRequestRequired().toString());
+
+        return new ResponseEntity<>(new Resources<Resource>(
+                searchResult
+                        .getSearchResult()
                         .stream()
                         .map(movie -> new Resource<MovieSearchMetadata>(
                                         movie,
@@ -47,7 +52,9 @@ public class MovieSearchController {
                                         entityLinks.linkToSingleResource(MovieRepository.class, movie.getImdbID()).withRel("movie")
                                 )
                         )
-                        .collect(Collectors.toList())
+                        .collect(Collectors.toList())),
+                httpHeaders,
+                HttpStatus.OK
         );
     }
 }

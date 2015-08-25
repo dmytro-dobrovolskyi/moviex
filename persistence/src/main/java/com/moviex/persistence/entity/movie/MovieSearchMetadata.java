@@ -5,6 +5,7 @@ import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
 
 import javax.persistence.*;
+import java.math.BigDecimal;
 
 @Entity
 @Table(name = "\"MovieSearchMetadata\"")
@@ -33,7 +34,7 @@ public class MovieSearchMetadata {
     private String poster;
 
     @Column(name = "\"ImdbRating\"")
-    private String imdbRating;
+    private BigDecimal imdbRating;
 
     @OneToOne(fetch = FetchType.LAZY)
     @PrimaryKeyJoinColumn
