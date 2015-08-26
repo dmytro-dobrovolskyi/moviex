@@ -43,3 +43,21 @@ h1 {
 .content .fa-spinner {
     margin-top: 75px;
 }
+
+#film-spinner {
+    -moz-animation: spin-vertically 1.2s infinite linear;
+    -o-animation: spin-vertically 1.2s infinite linear;
+    -webkit-animation: spin-vertically 1.2s infinite linear;
+    animation: spin-vertically 1.2s infinite linear;
+    font-size: 5em;
+    padding-top: 50px;
+}
+
+@keyframes spin-vertically {
+    0% {
+        transform: rotateX(-180deg);
+    }
+    100% {
+        transform: rotateX(180deg);
+    }
+}

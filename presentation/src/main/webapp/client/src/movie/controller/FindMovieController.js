@@ -8,14 +8,11 @@
             var FindMovieController = function ($rootScope, $scope, $log, $stateParams, $location, Movie, SpringDataRestAdapter) {
                 $rootScope.isLoaded = true;
                 $scope.title = $stateParams.title;
+                $scope.isForceBtnHidden = !($stateParams.isForce === "true");
 
-                if ($stateParams.isForce === "true") {
-                    $location.search('isForce', null);
-                    $scope.isForceBtnHidden = true;
-                }
 
                 var doRequest = function () {
-                    $scope.isMovieLoading = true;
+                    $scope.isMoviesLoading = true;
 
                     var response = Movie.findByTitle(
                         {title: $scope.title, isForce: $stateParams.isForce === "true"}, function (data, getHeaders) {
@@ -30,13 +27,13 @@
                             if (getHeaders().result === ResultInfo.BY_WORD_REQUEST_REQUIRED && titleWords.length > 1) {
                                 Movie.requestByWordAndPersist(titleWords);
                             }
-                            $scope.isMovieLoading = false;
+                            $scope.isMoviesLoading = false;
+                            $location.search('isForce', null);
                         })
                 };
 
                 $scope.findMovie = function () {
                     $scope.movies = null;
-                    $stateParams.isForce = false;
                     doRequest();
                     $scope.isForceBtnHidden = false;
                 };

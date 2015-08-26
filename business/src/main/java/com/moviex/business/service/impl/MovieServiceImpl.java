@@ -56,7 +56,7 @@ public class MovieServiceImpl implements MovieService {
     }
 
     @Override
-    @Transactional
+    @Transactional(propagation = Propagation.REQUIRES_NEW)
     public void upsert(Iterable<Movie> movies) {
         movieRepository.save(movies);
     }
