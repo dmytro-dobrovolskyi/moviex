@@ -3,7 +3,7 @@
     padding-bottom: 20px;
 }
 
-#film-spinner {
+#movie-load-icon {
     -webkit-animation: move 2s linear 0s infinite alternate;
     -moz-animation: move 2s linear 0s infinite alternate;
     -o-animation: move 2s linear 0s infinite alternate;

@@ -38,9 +38,7 @@ public class MovieSearchController {
     @RequestMapping(value = "/by-title/{title}")
     public ResponseEntity<Resources<Resource>> findByTitle(@PathVariable String title, @RequestParam Boolean isForce) {
 
-        logger.error(isForce.toString());
-
-        MovieSearchResultDto searchResult = movieSearchService.findByTitle(title);
+        MovieSearchResultDto searchResult = movieSearchService.findByTitle(title, isForce);
 
         HttpHeaders httpHeaders = new HttpHeaders();
         httpHeaders.add("result", searchResult.getResultInfo().toString());

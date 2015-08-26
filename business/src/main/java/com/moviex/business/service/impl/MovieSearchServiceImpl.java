@@ -10,6 +10,7 @@ import com.moviex.persistence.repository.MovieSearchMetadataRepository;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Transactional;
 
@@ -29,13 +30,13 @@ public class MovieSearchServiceImpl implements MovieSearchService {
     private MovieService movieService;
 
     @Override
-    @Transactional
-    public MovieSearchResultDto findByTitle(String title) {
+    @Transactional(readOnly = true)
+    public MovieSearchResultDto findByTitle(String title, Boolean isForce) {
 
         List<MovieSearchMetadata> searchResult = movieSearchMetadataRepository.findByTitleContainingIgnoreCase(title);
         MovieSearchResultInfo resultInfo = MovieSearchResultInfo.OK;
 
-        if (searchResult.isEmpty()) {
+        if (searchResult.isEmpty() || isForce) {
             Set<Movie> movies = movieService.requestByTitle(title);
             searchResult.addAll(
                     movies
@@ -43,9 +44,14 @@ public class MovieSearchServiceImpl implements MovieSearchService {
                             .map(Movie::getMovieSearchMetadata)
                             .collect(Collectors.toList())
             );
-            movieService.upsertAsync(movies);
+            upsertAsync(movies);
             resultInfo = MovieSearchResultInfo.BY_WORD_REQUEST_REQUIRED;
         }
         return new MovieSearchResultDto(searchResult, resultInfo);
+    }
+
+    @Async
+    public void upsertAsync(Iterable<Movie> movies) {
+        movieService.upsert(movies);
     }
 }

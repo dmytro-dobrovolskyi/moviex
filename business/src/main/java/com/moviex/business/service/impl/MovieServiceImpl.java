@@ -16,6 +16,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.scheduling.annotation.AsyncResult;
 import org.springframework.stereotype.Service;
+import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.web.client.RestTemplate;
 
@@ -52,13 +53,6 @@ public class MovieServiceImpl implements MovieService {
     @Transactional
     public void upsert(Movie movie) {
         movieRepository.save(movie);
-    }
-
-    @Override
-    @Async
-    @Transactional
-    public void upsertAsync(Iterable<Movie> movies) {
-        movieRepository.save(movies);
     }
 
     @Override

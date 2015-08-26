@@ -19,34 +19,34 @@
 
     <div class="row">
 
-    <div class="col-md-8 col-md-offset-2 text-center" ng-show="clicked && !movies">
-        <i id="film-spinner" class="fa fa-film"></i>
+        <div class="col-md-8 col-md-offset-2 text-center" ng-show="isMovieLoading && !movies">
+            <i id="movie-load-icon" class="fa fa-film"></i>
+        </div>
+
+        <div class="col-md-8 col-md-offset-2" ng-show="movies">
+            <table class="table table-hover table-condensed table-responsive">
+                <tbody ng-repeat="movie in movies">
+                <tr ng-click="">
+                    <td>
+                        <img class="img-responsive img-thumbnail" ng-src="{{movie.poster}}"
+                             src-err="client/assets/css/images/image-not-found.jpg" width="96" height="132">
+                    </td>
+
+                    <td>
+                        <h4>{{movie.title}}</h4>
+
+                        <h4>{{movie.year}}</h4>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
     </div>
 
-    <div class="col-md-8 col-md-offset-2" ng-show="movies">
-        <table class="table table-hover table-condensed table-responsive">
-            <tbody ng-repeat="movie in movies">
-            <tr ng-click="">
-                <td>
-                    <img class="img-responsive img-thumbnail" ng-src="{{movie.poster}}"
-                         src-err="client/assets/css/images/image-not-found.jpg" width="96" height="132">
-                </td>
-
-                <td>
-                    <h4>{{movie.title}}</h4>
-
-                    <h4>{{movie.year}}</h4>
-                </td>
-            </tr>
-            </tbody>
-        </table>
-    </div>
-    </div>
-
-    <div class="row" ng-show="movies">
+    <div class="row" ng-show="movies && !isForceBtnHidden">
         <div class="col-md-4 col-md-offset-4 text-center">
-            <a ui-sref="root.find-movie({title: title, isForce : 'true'})">
-                <button type="button" class="btn btn-lg btn-info">This is not what you were looking for?</button>
+            <a ui-sref="root.find-movie({title : title, isForce : 'true'})">
+                <button type="button" class="btn btn-lg btn-info">This is not what i were looking for!</button>
             </a>
         </div>
     </div>

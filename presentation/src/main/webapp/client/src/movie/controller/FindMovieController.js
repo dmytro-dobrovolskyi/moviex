@@ -5,46 +5,47 @@
     define(
         [],
         function () {
-            var FindMovieController = function ($rootScope, $scope, $log, $stateParams, Movie, SpringDataRestAdapter) {
-
-                $log.info($stateParams.isForce);
-                $log.info($stateParams.title);
-
+            var FindMovieController = function ($rootScope, $scope, $log, $stateParams, $location, Movie, SpringDataRestAdapter) {
                 $rootScope.isLoaded = true;
                 $scope.title = $stateParams.title;
 
+                if ($stateParams.isForce === "true") {
+                    $location.search('isForce', null);
+                    $scope.isForceBtnHidden = true;
+                }
+
+                var doRequest = function () {
+                    $scope.isMovieLoading = true;
+
+                    var response = Movie.findByTitle(
+                        {title: $scope.title, isForce: $stateParams.isForce === "true"}, function (data, getHeaders) {
+                            SpringDataRestAdapter
+                                .process(data.$promise)
+                                .then(function (processedResponse) {
+                                    $scope.movies = processedResponse._embeddedItems;
+                                });
+
+                            var titleWords = $scope.title.split(" ");
+
+                            if (getHeaders().result === ResultInfo.BY_WORD_REQUEST_REQUIRED && titleWords.length > 1) {
+                                Movie.requestByWordAndPersist(titleWords);
+                            }
+                            $scope.isMovieLoading = false;
+                        })
+                };
+
                 $scope.findMovie = function () {
                     $scope.movies = null;
-                    $scope.clicked = true;
-
-                    var response = Movie.findByTitle({title: $scope.title, isForce: $stateParams.isForce === "true"}, function (data, getHeaders) {
-                        SpringDataRestAdapter
-                            .process(data.$promise)
-                            .then(function (processedResponse) {
-                                $log.debug(processedResponse);
-                                $scope.movies = processedResponse._embeddedItems;
-
-                                $log.info($scope.movies);
-
-                                $scope.clicked = false;
-                            });
-
-                        var titleWords = $scope.title.split(" ");
-
-                        if (getHeaders().result === ResultInfo.BY_WORD_REQUEST_REQUIRED && titleWords.length > 1) {
-                            $log.debug("Retrieving...");
-                            Movie.requestByWordAndPersist(titleWords, function (result) {
-                                $log.debug(result);
-                            })
-                        }
-                    })
+                    $stateParams.isForce = false;
+                    doRequest();
+                    $scope.isForceBtnHidden = false;
                 };
 
                 if ($scope.title) {
-                    $scope.findMovie();
+                    doRequest();
                 }
             };
-            return ["$rootScope", "$scope", "$log", "$stateParams", "Movie", "SpringDataRestAdapter", FindMovieController];
+            return ["$rootScope", "$scope", "$log", "$stateParams", "$location", "Movie", "SpringDataRestAdapter", FindMovieController];
         }
     );
 

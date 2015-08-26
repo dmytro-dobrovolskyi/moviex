@@ -15,8 +15,6 @@ public interface MovieService {
 
     void upsert(Iterable<Movie> movies);
 
-    void upsertAsync(Iterable<Movie> movies);
-
     Future<Set<Movie>> requestByTitleAsync(String title);
 
     Set<Movie> requestByTitle(String title);
