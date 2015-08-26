@@ -1,6 +1,7 @@
 package com.moviex.business.service.impl;
 
-import com.moviex.business.dto.MovieSearchResultDto;
+import com.moviex.business.dto.movie.MovieSearchResultDto;
+import com.moviex.business.dto.movie.MovieSearchResultInfo;
 import com.moviex.business.service.MovieSearchService;
 import com.moviex.business.service.MovieService;
 import com.moviex.persistence.entity.movie.Movie;
@@ -32,7 +33,7 @@ public class MovieSearchServiceImpl implements MovieSearchService {
     public MovieSearchResultDto findByTitle(String title) {
 
         List<MovieSearchMetadata> searchResult = movieSearchMetadataRepository.findByTitleContainingIgnoreCase(title);
-        Boolean isRequestRequired = false;
+        MovieSearchResultInfo resultInfo = MovieSearchResultInfo.OK;
 
         if (searchResult.isEmpty()) {
             Set<Movie> movies = movieService.requestByTitle(title);
@@ -43,8 +44,8 @@ public class MovieSearchServiceImpl implements MovieSearchService {
                             .collect(Collectors.toList())
             );
             movieService.upsertAsync(movies);
-            isRequestRequired = true;
+            resultInfo = MovieSearchResultInfo.BY_WORD_REQUEST_REQUIRED;
         }
-        return new MovieSearchResultDto(searchResult, isRequestRequired);
+        return new MovieSearchResultDto(searchResult, resultInfo);
     }
 }

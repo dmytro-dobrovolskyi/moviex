@@ -1,6 +1,6 @@
 package com.moviex.presentation.controller.movie;
 
-import com.moviex.business.dto.MovieSearchResultDto;
+import com.moviex.business.dto.movie.MovieSearchResultDto;
 import com.moviex.business.service.MovieSearchService;
 import com.moviex.persistence.entity.movie.MovieSearchMetadata;
 import com.moviex.persistence.repository.MovieRepository;
@@ -16,6 +16,7 @@ import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -34,13 +35,15 @@ public class MovieSearchController {
     @Qualifier(value = "entityLinks")   //RepositoryEntityLinks injects here
     private EntityLinks entityLinks;
 
-    @RequestMapping(value = "/by-title")
-    public ResponseEntity<Resources<Resource>> findByTitle(@RequestParam String title) {
+    @RequestMapping(value = "/by-title/{title}")
+    public ResponseEntity<Resources<Resource>> findByTitle(@PathVariable String title, @RequestParam Boolean isForce) {
+
+        logger.error(isForce.toString());
 
         MovieSearchResultDto searchResult = movieSearchService.findByTitle(title);
 
         HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("request", searchResult.getIsRequestRequired().toString());
+        httpHeaders.add("result", searchResult.getResultInfo().toString());
 
         return new ResponseEntity<>(new Resources<Resource>(
                 searchResult

@@ -3,22 +3,51 @@
 </div>
 
 <div class="row">
-    <form>
-        <div class="col-md-8 col-md-offset-2 form-group">
-            <input type="text" class="form-control input-lg" placeholder="Movie title" required ng-model="title">
-        </div>
-        <div class="col-md-2 col-md-offset-5 text-center">
-            <button type="submit" class="btn btn-lg btn-success" ng-click="findMovie()">Go</button>
+    <form ng-submit="findMovie()">
+        <div class="form-group">
+            <div class="col-md-8 col-md-offset-2 form-group">
+                <input type="text" class="form-control input-lg" placeholder="Movie title" ng-model="title" required>
+            </div>
+            <div class="col-md-2 col-md-offset-5 text-center form-group">
+                <button type="submit" class="btn btn-lg btn-success">Go</button>
+            </div>
         </div>
     </form>
 </div>
 
-<div class="row" ng-if="movies">
-    <div class="col-md-10 col-md-offset-1 text-center" style="background-color: #e0e0e0; margin-top:20px; padding-bottom: 20px;">
-        <div ng-repeat="movie in movies">
-            <h3>{{movie.title}}</h3>
-            <h3>{{movie.year}}</h3>
-            <img ng-src="{{movie.poster}}">
+<div class="search-result">
+
+    <div class="row">
+
+    <div class="col-md-8 col-md-offset-2 text-center" ng-show="clicked && !movies">
+        <i id="film-spinner" class="fa fa-film"></i>
+    </div>
+
+    <div class="col-md-8 col-md-offset-2" ng-show="movies">
+        <table class="table table-hover table-condensed table-responsive">
+            <tbody ng-repeat="movie in movies">
+            <tr ng-click="">
+                <td>
+                    <img class="img-responsive img-thumbnail" ng-src="{{movie.poster}}"
+                         src-err="client/assets/css/images/image-not-found.jpg" width="96" height="132">
+                </td>
+
+                <td>
+                    <h4>{{movie.title}}</h4>
+
+                    <h4>{{movie.year}}</h4>
+                </td>
+            </tr>
+            </tbody>
+        </table>
+    </div>
+    </div>
+
+    <div class="row" ng-show="movies">
+        <div class="col-md-4 col-md-offset-4 text-center">
+            <a ui-sref="root.find-movie({title: title, isForce : 'true'})">
+                <button type="button" class="btn btn-lg btn-info">This is not what you were looking for?</button>
+            </a>
         </div>
     </div>
 </div>

@@ -11,7 +11,6 @@
 
                 $stateProvider
                     .state("root", {
-                        url: "/",
                         views: {
                             navbar: {
                                 templateUrl: "client/assets/views/start/navbar.view.html",
@@ -32,7 +31,7 @@
                         }
                     })
                     .state("root.find-movie", {
-                        url: "^/find-movie",
+                        url: "^/find-movie/{title}?isForce",
                         views: {
                             "container@": {
                                 templateUrl: "client/assets/views/movie/find-movie.view.html",

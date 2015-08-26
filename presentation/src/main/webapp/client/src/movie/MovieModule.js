@@ -5,16 +5,18 @@
     define(
         [
             "movie/controller/FindMovieController",
-            "movie/service/model/Movie"
+            "movie/service/model/Movie",
+            "movie/directive/SrcErrorDirective"
         ],
-        function (FindMovieController, Movie) {
+        function (FindMovieController, Movie, SrcErrorDirective) {
 
             var moduleName = "MovieModule";
 
             angular
                 .module(moduleName, [])
                 .factory("Movie", Movie)
-                .controller("FindMovieController", FindMovieController);
+                .controller("FindMovieController", FindMovieController)
+                .directive("srcErr", SrcErrorDirective);
 
             return moduleName;
         }

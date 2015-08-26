@@ -1,0 +1,25 @@
+.search-result {
+    margin-top: 20px;
+    padding-bottom: 20px;
+}
+
+#film-spinner {
+    -webkit-animation: move 2s linear 0s infinite alternate;
+    -moz-animation: move 2s linear 0s infinite alternate;
+    -o-animation: move 2s linear 0s infinite alternate;
+    animation: move 2s linear 0s infinite alternate;
+    font-size: 5em;
+}
+
+@keyframes move {
+    from {
+        margin-left: -25%;
+    }
+    to {
+        margin-left: 25%;
+    }
+}
+
+.table-hover tbody tr:hover td, .table-hover tbody tr:hover th {
+    background-color: #5bc0de;
+}

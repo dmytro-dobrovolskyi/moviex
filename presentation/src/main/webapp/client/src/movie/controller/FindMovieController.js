@@ -5,33 +5,52 @@
     define(
         [],
         function () {
-            var FindMovieController = function ($rootScope, $scope, $log, Movie, SpringDataRestAdapter) {
-                $log.debug("FindMovieController");
-                $rootScope.isLoaded = true;
+            var FindMovieController = function ($rootScope, $scope, $log, $stateParams, Movie, SpringDataRestAdapter) {
 
-                $scope.title = null;
+                $log.info($stateParams.isForce);
+                $log.info($stateParams.title);
+
+                $rootScope.isLoaded = true;
+                $scope.title = $stateParams.title;
+
                 $scope.findMovie = function () {
-                    var response = Movie.findByTitle({title: $scope.title}, function (data, getHeaders) {
+                    $scope.movies = null;
+                    $scope.clicked = true;
+
+                    var response = Movie.findByTitle({title: $scope.title, isForce: $stateParams.isForce === "true"}, function (data, getHeaders) {
                         SpringDataRestAdapter
                             .process(data.$promise)
                             .then(function (processedResponse) {
                                 $log.debug(processedResponse);
                                 $scope.movies = processedResponse._embeddedItems;
+
+                                $log.info($scope.movies);
+
+                                $scope.clicked = false;
                             });
 
                         var titleWords = $scope.title.split(" ");
 
-                        if (getHeaders().request === "true" && titleWords.length > 1) {
+                        if (getHeaders().result === ResultInfo.BY_WORD_REQUEST_REQUIRED && titleWords.length > 1) {
                             $log.debug("Retrieving...");
                             Movie.requestByWordAndPersist(titleWords, function (result) {
                                 $log.debug(result);
                             })
                         }
-
                     })
+                };
+
+                if ($scope.title) {
+                    $scope.findMovie();
                 }
             };
-            return ["$rootScope", "$scope", "$log", "Movie", "SpringDataRestAdapter", FindMovieController];
+            return ["$rootScope", "$scope", "$log", "$stateParams", "Movie", "SpringDataRestAdapter", FindMovieController];
         }
     );
-})(define);
+
+    var ResultInfo = {
+        OK: "OK",
+        BY_WORD_REQUEST_REQUIRED: "BY_WORD_REQUEST_REQUIRED"
+    }
+})
+(define);

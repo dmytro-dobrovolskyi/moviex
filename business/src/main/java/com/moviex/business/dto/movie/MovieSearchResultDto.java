@@ -1,4 +1,4 @@
-package com.moviex.business.dto;
+package com.moviex.business.dto.movie;
 
 import com.moviex.persistence.entity.movie.MovieSearchMetadata;
 import lombok.AccessLevel;
@@ -14,10 +14,10 @@ import java.util.List;
 public class MovieSearchResultDto {
 
     private List<MovieSearchMetadata> searchResult;
-    private Boolean isRequestRequired;
+    private MovieSearchResultInfo resultInfo;
 
-    public MovieSearchResultDto(List<MovieSearchMetadata> searchResult, Boolean isRequestRequired) {
+    public MovieSearchResultDto(List<MovieSearchMetadata> searchResult, MovieSearchResultInfo resultInfo) {
         this.searchResult = searchResult;
-        this.isRequestRequired = isRequestRequired;
+        this.resultInfo = resultInfo;
     }
 }
