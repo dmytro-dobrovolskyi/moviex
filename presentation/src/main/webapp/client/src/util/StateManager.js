@@ -31,7 +31,8 @@
                         }
                     })
                     .state("root.find-movie", {
-                        url: "^/find-movie/{title}?isForce",
+                        url: "^/find-movie/?title?isForce",
+                        reloadOnSearch : false,
                         views: {
                             "container@": {
                                 templateUrl: "client/assets/views/movie/find-movie.view.html",

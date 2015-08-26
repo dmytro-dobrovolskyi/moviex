@@ -16,7 +16,6 @@ import org.springframework.hateoas.Resources;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 
@@ -35,8 +34,8 @@ public class MovieSearchController {
     @Qualifier(value = "entityLinks")   //RepositoryEntityLinks injects here
     private EntityLinks entityLinks;
 
-    @RequestMapping(value = "/by-title/{title}")
-    public ResponseEntity<Resources<Resource>> findByTitle(@PathVariable String title, @RequestParam Boolean isForce) {
+    @RequestMapping(value = "/by-title")
+    public ResponseEntity<Resources<Resource>> findByTitle(@RequestParam String title, @RequestParam Boolean isForce) {
 
         MovieSearchResultDto searchResult = movieSearchService.findByTitle(title, isForce);
 

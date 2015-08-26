@@ -9,7 +9,7 @@
                 return $resource(
                     "movie", null,
                     {
-                        findByTitle: {method: "GET", url: "movie/search/by-title/:title"},
+                        findByTitle: {method: "GET", url: "movie/search/by-title"},
                         requestByWordAndPersist: {method: "POST", url: "movie/persistence/request/by-word"}
                     });
             };

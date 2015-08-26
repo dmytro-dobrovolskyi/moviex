@@ -19,15 +19,15 @@
 
     <div class="row">
 
-        <div class="col-md-8 col-md-offset-2 text-center" ng-show="isMoviesLoading && !movies">
+        <div class="col-md-8 col-md-offset-2 text-center" ng-hide="isMoviesLoaded" ng-show="!movies">
             <i id="movie-load-icon" class="fa fa-film"></i>
         </div>
 
-        <div class="col-md-8 col-md-offset-2 text-center" ng-show="!isMoviesLoading && !movies">
+        <div class="col-md-8 col-md-offset-2 text-center" ng-show="isMoviesLoaded && !movies">
             <h2>No results found for "<b>{{title}}</b>"</h2>
         </div>
 
-        <div class="col-md-8 col-md-offset-2" ng-show="movies">
+        <div class="col-md-8 col-md-offset-2" ng-show="isMoviesLoaded">
             <table class="table table-hover table-condensed table-responsive">
                 <tbody ng-repeat="movie in movies">
                 <tr ng-click="">
@@ -47,9 +47,9 @@
         </div>
     </div>
 
-    <div class="row" ng-show="movies && !isForceBtnHidden">
+    <div class="row" ng-hide="isForceBtnHidden || !movies">
         <div class="col-md-4 col-md-offset-4 text-center">
-            <a ui-sref="root.find-movie({title : title, isForce : 'true'})">
+            <a ui-sref="root.find-movie({title : title, isForce : 'true'})" ui-sref-opts="{reload: true}">
                 <button type="button" class="btn btn-lg btn-info">This is not what i were looking for!</button>
             </a>
         </div>
