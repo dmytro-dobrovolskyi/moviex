@@ -1,16 +1,17 @@
 {
-  "name": "moviex",
-  "dependencies": {
-    "angular": "latest",
-    "bootstrap": "latest",
-    "requirejs": "latest",
-    "angular-ui-router": "latest",
-    "angular-bootstrap": "latest",
-    "components-font-awesome": "latest",
-    "angular-resource": "latest",
-    "angular-spring-data-rest": "latest"
-  },
-  "resolutions": {
-    "angular": "1.4.4"
-  }
+    "name": "moviex",
+    "dependencies": {
+        "angular": "latest",
+        "bootstrap": "latest",
+        "requirejs": "latest",
+        "angular-ui-router": "latest",
+        "angular-bootstrap": "latest",
+        "components-font-awesome": "latest",
+        "angular-resource": "latest",
+        "angular-spring-data-rest": "latest",
+        "angular-animate": "latest"
+    },
+    "resolutions": {
+        "angular": "1.4.4"
+    }
 }

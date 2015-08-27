@@ -5,10 +5,9 @@
     define(
         [
             "start/StartModule",
-            "movie/MovieModule",
-            "util/StateManager"
+            "movie/MovieModule"
         ],
-        function (WelcomeModule, MovieModule, StateManager) {
+        function (StartModule, MovieModule) {
 
             var appName = "moviex";
             var app = angular.module(appName,
@@ -16,12 +15,14 @@
                     "ui.router",
                     "ui.bootstrap",
                     "ngResource",
+                    "ngAnimate",
                     "spring-data-rest",
-                    WelcomeModule,
+                    StartModule,
                     MovieModule
                 ])
-                .config(StateManager);
-
+                .config(['$tooltipProvider', function ($tooltipProvider) {
+                    $tooltipProvider.options({animation: false});
+                }]);
             return appName;
         }
     );

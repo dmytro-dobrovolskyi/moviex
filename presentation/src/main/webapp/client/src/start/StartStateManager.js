@@ -5,8 +5,7 @@
     define(
         [],
         function () {
-            return function ($stateProvider, $urlRouterProvider) {
-
+            var StartStateManager = function ($stateProvider, $urlRouterProvider) {
                 $urlRouterProvider.otherwise("/home");
 
                 $stateProvider
@@ -15,32 +14,22 @@
                             navbar: {
                                 templateUrl: "client/assets/views/start/navbar.view.html",
                                 controller: function ($log, $scope) {
-                                    $log.info("NavbarController");
                                     $scope.isCollapsed = true;
                                 }
                             }
                         }
                     })
                     .state("root.home", {
-                        url: "^/home",
+                        url: "/home",
                         views: {
                             "container@": {
                                 templateUrl: "client/assets/views/start/home.view.html",
                                 controller: "HomeController"
                             }
                         }
-                    })
-                    .state("root.find-movie", {
-                        url: "^/find-movie/?title?isForce",
-                        reloadOnSearch : false,
-                        views: {
-                            "container@": {
-                                templateUrl: "client/assets/views/movie/find-movie.view.html",
-                                controller: "FindMovieController"
-                            }
-                        }
                     });
-            }
+            };
+            return ["$stateProvider", "$urlRouterProvider", StartStateManager];
         }
     )
 })(define);

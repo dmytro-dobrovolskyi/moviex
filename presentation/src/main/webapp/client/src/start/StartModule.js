@@ -4,16 +4,17 @@
 
     define(
         [
-            "start/controller/HomeController"
+            "start/controller/HomeController",
+            "start/StartStateManager"
         ],
-        function (HomeController) {
+        function (HomeController, StartStateManager) {
 
             var moduleName = "StartModule";
 
             angular
                 .module(moduleName, [])
-                .controller("HomeController", HomeController);
-
+                .controller("HomeController", HomeController)
+                .config(StartStateManager);
             return moduleName;
         }
     );

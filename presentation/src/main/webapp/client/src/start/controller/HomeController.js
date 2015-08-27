@@ -6,7 +6,6 @@
         [],
         function () {
             var HomeController = function ($rootScope, $scope, $log) {
-                $log.info("HomeController");
                 $scope.isCollapsed = true;
 
                 $scope.slides =

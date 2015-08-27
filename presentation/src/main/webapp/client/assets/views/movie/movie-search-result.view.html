@@ -1,0 +1,30 @@
+<div class="search-result">
+    <div class="row">
+        <div class="col-md-8 col-md-offset-2 text-center" ng-show="isMoviesLoading">
+            <i id="movie-load-icon" class="fa fa-film"></i>
+        </div>
+
+        <div class="col-md-8 col-md-offset-2 text-center" ng-show="isMoviesLoaded && !result">
+            <h2>No results found</h2>
+        </div>
+
+        <div class="col-md-8 col-md-offset-2" ng-show="isMoviesLoaded">
+            <table class="table table-hover table-condensed table-responsive">
+                <tbody ng-repeat="item in result">
+                <tr ng-click="toFullMovieInfo(item._links)" ui-sref="root.movie-details({'links' : item._links})">
+                    <td>
+                        <img class="img-responsive img-thumbnail" ng-src="{{item.poster}}"
+                             src-err="client/assets/css/images/image-not-found.jpg" width="96" height="132">
+                    </td>
+
+                    <td>
+                        <h4>{{item.title}}</h4>
+
+                        <h4>{{item.year}}</h4>
+                    </td>
+                </tr>
+                </tbody>
+            </table>
+        </div>
+    </div>
+</div>
