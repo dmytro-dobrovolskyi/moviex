@@ -5,16 +5,16 @@
     define(
         [],
         function () {
-            var MovieSearchRequestController = function ($scope, $log, $stateParams, $location, Movie, SpringDataRestAdapter) {
+            var MovieSearchRequestController = function ($scope, $log, $stateParams, $state, $location, Movie, SpringDataRestAdapter) {
                 $scope.isMoviesLoading = true;
                 $scope.title.value = $stateParams.title;
 
                 var isForce = $stateParams.isForce === "true";
 
-                Movie
+                Movie()
                     .findByTitle({isForce: isForce, title: $stateParams.title}, function (data, getHeaders) {
                         SpringDataRestAdapter
-                            .process(data.$promise)
+                            .process(data)
                             .then(function (processedResponse) {
                                 $scope.result = processedResponse._embeddedItems;
                             });
@@ -26,15 +26,15 @@
                         }
                         $scope.isMoviesLoading = !($scope.isMoviesLoaded = true);
                         $location.search('isForce', null);
-                        $scope.isForceBtnShown.value = !isForce;
+                        $scope.isForceBtnShown = !isForce;
                     });
 
-                $scope.toFullMovieInfo = function (links) {
-                    $log.info(links);
+                $scope.toDetails = function (selectedItem) {
+                    $scope.$parent.selectedSearchResult = selectedItem;
+                    $state.go('^.details', {movieLink: encodeURIComponent(JSON.stringify(selectedItem._links.movie))});
                 };
-
             };
-            return ["$scope", "$log", "$stateParams", "$location", "Movie", "SpringDataRestAdapter", MovieSearchRequestController];
+            return ["$scope", "$log", "$stateParams", "$state", "$location", "Movie", "SpringDataRestAdapter", MovieSearchRequestController];
         }
     );
 

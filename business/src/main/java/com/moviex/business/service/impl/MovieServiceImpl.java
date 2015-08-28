@@ -87,7 +87,7 @@ public class MovieServiceImpl implements MovieService {
 
     private Function<ImdbIdHolder, Movie> retrieveByIdAndMap() {
         return imdbId -> {
-            String requestResult = restTemplate.getForObject(IMDB_URL + "/?i=" + imdbId, String.class);
+            String requestResult = restTemplate.getForObject(IMDB_URL + "/?plot=full&i=" + imdbId, String.class);
 
             Movie movie = mapFromString(requestResult, Movie.class);
             MovieSearchMetadata searchMetadata = mapFromString(requestResult, MovieSearchMetadata.class);

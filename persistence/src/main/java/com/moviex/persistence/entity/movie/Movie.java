@@ -8,12 +8,12 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Data
 @Table(name = "\"Movie\"")
-@Getter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @EqualsAndHashCode(of = "imdbID")
 @JsonIgnoreProperties(ignoreUnknown = true)
+@Getter
+@Setter
 public class Movie {
 
     @Id
@@ -43,8 +43,14 @@ public class Movie {
     @Setter
     private String imdbVotes;
 
+    @Column(name = "\"Description\"")
+    @Lob
+    private String description;
+
+    @Column(name = "\"Country\"")
+    private String country;
+
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "movie")
-    @Setter
     private MovieSearchMetadata movieSearchMetadata;
 
     @JsonProperty("Runtime")
@@ -70,5 +76,50 @@ public class Movie {
     @JsonProperty("Writer")
     public void setWriter(String writer) {
         this.writer = writer;
+    }
+
+    @JsonProperty("Plot")
+    public void setDescription(String description) {
+        this.description = description;
+    }
+
+    @JsonProperty("Country")
+    public void setCountry(String country) {
+        this.country = country;
+    }
+
+    @JsonProperty("Runtime")
+    public String getRuntime() {
+        return runtime;
+    }
+
+    @JsonProperty("genre")
+    public String getGenre() {
+        return genre;
+    }
+
+    @JsonProperty("director")
+    public String getDirector() {
+        return director;
+    }
+
+    @JsonProperty("writer")
+    public String getWriter() {
+        return writer;
+    }
+
+    @JsonProperty("actors")
+    public String getActors() {
+        return actors;
+    }
+
+    @JsonProperty("description")
+    public String getDescription() {
+        return description;
+    }
+
+    @JsonProperty("country")
+    public String getCountry() {
+        return country;
     }
 }

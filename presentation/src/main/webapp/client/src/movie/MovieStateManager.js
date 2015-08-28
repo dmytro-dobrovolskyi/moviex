@@ -26,8 +26,8 @@
                             }
                         }
                     })
-                    .state("root.find-movie.movie-details", {
-                        url: "/movie/{links}",
+                    .state("root.find-movie.details", {
+                        url: "/details/{movieLink}",
                         views: {
                             "content": {
                                 templateUrl: "client/assets/views/movie/movie-details.view.html",

@@ -16,8 +16,8 @@ import javax.persistence.*;
 public class MovieSearchMetadata {
 
     @Id
-    @Setter(AccessLevel.PRIVATE)
     @Column(name = "\"Id\"")
+    @Setter(AccessLevel.PRIVATE)
     private String imdbID;
 
     @Column(name = "\"Title\"")

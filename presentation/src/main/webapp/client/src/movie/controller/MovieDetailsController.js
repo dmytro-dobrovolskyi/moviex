@@ -5,10 +5,23 @@
     define(
         [],
         function () {
-            var MovieDetailsController = function ($scope, $log) {
-                $log.info("MovieDetailsController");
+            var MovieDetailsController = function ($scope, $log, $stateParams, Movie, SpringDataRestAdapter) {
+
+                Movie(JSON.parse(decodeURIComponent($stateParams.movieLink)).href)
+                    .get(function (data) {
+                        if (!$scope.selectedSearchResult) {
+                            SpringDataRestAdapter
+                                .process(data)
+                                .then(function (processedResponse) {
+                                    processedResponse._resources("movieSearchMetadata").get(function (data) {
+                                        $scope.selectedSearchResult = data;
+                                    });
+                                });
+                        }
+                        $scope.details = data;
+                    });
             };
-            return["$scope", "$log", MovieDetailsController];
+            return["$scope", "$log", "$stateParams", "Movie", "SpringDataRestAdapter", MovieDetailsController];
         })
 })
 (define);
