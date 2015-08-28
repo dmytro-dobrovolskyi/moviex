@@ -18,12 +18,6 @@
                             .then(function (processedResponse) {
                                 $scope.result = processedResponse._embeddedItems;
                             });
-
-                        var titleWords = $stateParams.title.split(" ");
-
-                        if (getHeaders().result === ResultInfo.BY_WORD_REQUEST_REQUIRED && titleWords.length > 1) {
-                            Movie.requestByWordAndPersist(titleWords);
-                        }
                         $scope.isMoviesLoading = !($scope.isMoviesLoaded = true);
                         $location.search('isForce', null);
                         $scope.isForceBtnShown = !isForce;

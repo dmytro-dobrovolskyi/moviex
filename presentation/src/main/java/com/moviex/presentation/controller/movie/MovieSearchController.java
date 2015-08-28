@@ -1,6 +1,5 @@
 package com.moviex.presentation.controller.movie;
 
-import com.moviex.business.dto.movie.MovieSearchResultDto;
 import com.moviex.business.service.MovieSearchService;
 import com.moviex.persistence.entity.movie.MovieSearchMetadata;
 import com.moviex.persistence.repository.MovieRepository;
@@ -13,7 +12,6 @@ import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.hateoas.EntityLinks;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
-import org.springframework.http.HttpHeaders;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
@@ -37,23 +35,17 @@ public class MovieSearchController {
     @RequestMapping(value = "/by-title")
     public ResponseEntity<Resources<Resource>> findByTitle(@RequestParam String title, @RequestParam Boolean isForce) {
 
-        MovieSearchResultDto searchResult = movieSearchService.findByTitle(title, isForce);
-
-        HttpHeaders httpHeaders = new HttpHeaders();
-        httpHeaders.add("result", searchResult.getResultInfo().toString());
-
         return new ResponseEntity<>(new Resources<Resource>(
-                searchResult
-                        .getSearchResult()
+                movieSearchService
+                        .findByTitle(title, isForce)
                         .stream()
-                        .map(movie -> new Resource<MovieSearchMetadata>(
-                                        movie,
-                                        entityLinks.linkToSingleResource(MovieSearchMetadataRepository.class, movie.getImdbID()).withSelfRel(),
-                                        entityLinks.linkToSingleResource(MovieRepository.class, movie.getImdbID()).withRel("movie")
+                        .map(searchMetadata -> new Resource<MovieSearchMetadata>(
+                                        searchMetadata,
+                                        entityLinks.linkToSingleResource(MovieSearchMetadataRepository.class, searchMetadata.getImdbID()).withSelfRel(),
+                                        entityLinks.linkToSingleResource(MovieRepository.class, searchMetadata.getImdbID()).withRel("movie")
                                 )
                         )
                         .collect(Collectors.toList())),
-                httpHeaders,
                 HttpStatus.OK
         );
     }
