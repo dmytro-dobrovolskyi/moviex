@@ -5,13 +5,13 @@
     define(
         [
             "movie/controller/FindMovieController",
-            "movie/controller/MovieSearchRequestController",
+            "movie/controller/SearchMovieController",
             "movie/controller/MovieDetailsController",
             "movie/service/model/Movie",
             "movie/directive/SrcErrorDirective",
             "movie/MovieStateManager"
         ],
-        function (FindMovieController, MovieSearchRequestController, MovieDetailsController, Movie, SrcErrorDirective, MovieStateManager) {
+        function (FindMovieController, SearchMovieController, MovieDetailsController, Movie, SrcErrorDirective, MovieStateManager) {
 
             var moduleName = "MovieModule";
 
@@ -19,7 +19,7 @@
                 .module(moduleName, [])
                 .factory("Movie", Movie)
                 .controller("FindMovieController", FindMovieController)
-                .controller("MovieSearchRequestController", MovieSearchRequestController)
+                .controller("MovieSearchRequestController", SearchMovieController)
                 .controller("MovieDetailsController", MovieDetailsController)
                 .directive("srcErr", SrcErrorDirective)
                 .config(MovieStateManager);

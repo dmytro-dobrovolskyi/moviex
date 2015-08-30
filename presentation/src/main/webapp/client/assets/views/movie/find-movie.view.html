@@ -6,7 +6,12 @@
     <form ng-submit="findMovie()">
         <div class="form-group">
             <div class="col-md-8 col-md-offset-2 form-group">
-                <input type="text" class="form-control input-lg" placeholder="Movie title" ng-model="title.value" required>
+                <input type="text" class="form-control input-lg" placeholder="Movie title" ng-model="title.value"
+                       ng-change="searchMovie(title.value)"
+                       typeahead="movie as movie.title for movie in movies | filter: $viewValue"
+                       typeahead-focus-first="false"
+                       typeahead-on-select="toDetails($item)"
+                       required>
             </div>
             <div class="col-md-2 col-md-offset-5 text-center form-group">
                 <button type="submit" class="btn btn-lg btn-success">Go</button>
