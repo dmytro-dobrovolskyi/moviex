@@ -10,16 +10,18 @@
                 $scope.title = {};
 
                 $scope.searchMovie = function (title) {
-                    Movie()
-                        .searchByTitle({title: title}, function (data) {
-                            SpringDataRestAdapter
-                                .process(data)
-                                .then(function (processedResponse) {
-                                    if (processedResponse) {
-                                        $scope.movies = processedResponse._embeddedItems;
-                                    }
-                                });
-                        });
+                    if (title) {
+                        Movie()
+                            .searchByTitle({title: title}, function (data) {
+                                SpringDataRestAdapter
+                                    .process(data)
+                                    .then(function (processedResponse) {
+                                        if (processedResponse) {
+                                            $scope.movies = processedResponse._embeddedItems;
+                                        }
+                                    });
+                            });
+                    }
                 };
 
                 $scope.toDetails = function (selectedItem) {

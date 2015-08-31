@@ -22,7 +22,6 @@ import java.util.stream.Collectors;
 
 @Service
 public class MovieSearchServiceImpl implements MovieSearchService {
-
     private static final Logger logger = LoggerFactory.getLogger(MovieSearchServiceImpl.class);
     private static final String IMDB_URL = "http://www.omdbapi.com";
 
@@ -38,19 +37,22 @@ public class MovieSearchServiceImpl implements MovieSearchService {
     @Override
     @Transactional(readOnly = true)
     public List<MovieSearchMetadata> findByTitle(String title, Boolean isForce) {
-
         List<MovieSearchMetadata> searchResult;
 
-        if (isForce || (searchResult = movieSearchMetadataRepository.findByTitleContainingIgnoreCase(title)).isEmpty()) {
+        if (isForce || (searchResult = movieSearchMetadataRepository.searchByTitle(title, false)).isEmpty()) {
             searchResult = requestByTitle(title);
         }
         return searchResult;
     }
 
+    @Override
+    @Transactional(readOnly = true)
+    public List<MovieSearchMetadata> findByTitle(String title) {
+        return movieSearchMetadataRepository.searchByTitle(title, true);
+    }
 
     @Override
     public List<MovieSearchMetadata> requestByTitle(String title) {
-
         RequestResultHolder searchRequestResult = restOperations.getForObject(IMDB_URL + "/?s=" + title, RequestResultHolder.class);
 
         List<MovieSearchMetadata> searchMetadataList = new ArrayList<>();
@@ -74,7 +76,6 @@ public class MovieSearchServiceImpl implements MovieSearchService {
         return searchMetadataList;
     }
 
-
     @Getter
     @Setter
     @JsonIgnoreProperties(ignoreUnknown = true)
@@ -90,7 +91,6 @@ public class MovieSearchServiceImpl implements MovieSearchService {
     @Getter
     @Setter
     private static class RequestResultHolder {
-
         @JsonProperty("Search")
         private List<ImdbIdHolder> imdbIdList;
 

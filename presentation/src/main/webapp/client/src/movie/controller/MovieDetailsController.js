@@ -14,7 +14,7 @@
                                 .then(function (processedResponse) {
                                     processedResponse._resources("movieSearchMetadata").get(function (data) {
                                         $scope.selectedSearchResult = data;
-                                        $scope.title.value = data.title;
+                                        $scope.title.value = data.title.value;
                                     });
                                 });
                         }

@@ -26,9 +26,6 @@ public class MovieServiceImpl implements MovieService {
     @Autowired
     private MovieRepository movieRepository;
 
-    @Autowired
-    private ObjectMapper objectMapper;
-
     @Override
     @Transactional(readOnly = true)
     public Movie findById(String id) {

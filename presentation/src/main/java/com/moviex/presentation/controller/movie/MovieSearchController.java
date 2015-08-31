@@ -12,11 +12,11 @@ import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.hateoas.EntityLinks;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
-import org.springframework.http.HttpStatus;
-import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import java.util.List;
 import java.util.stream.Collectors;
 
 @RepositoryRestController
@@ -33,11 +33,22 @@ public class MovieSearchController {
     private EntityLinks entityLinks;
 
     @RequestMapping(value = "/by-title")
-    public ResponseEntity<Resources<Resource>> findByTitle(@RequestParam String title, @RequestParam Boolean isForce) {
+    public
+    @ResponseBody
+    Resources<Resource> findByTitle(@RequestParam String title, @RequestParam Boolean isForce) {
+        return toMovieResources(movieSearchService.findByTitle(title, isForce));
+    }
 
-        return new ResponseEntity<>(new Resources<Resource>(
-                movieSearchService
-                        .findByTitle(title, isForce)
+    @RequestMapping(value = "/advanced/by-title")
+    public
+    @ResponseBody
+    Resources<Resource> findByTitle(@RequestParam String title) {
+        return toMovieResources(movieSearchService.findByTitle(title));
+    }
+
+    private Resources<Resource> toMovieResources(List<MovieSearchMetadata> movieMetadataList) {
+        return new Resources<Resource>(
+                movieMetadataList
                         .stream()
                         .map(searchMetadata -> new Resource<MovieSearchMetadata>(
                                         searchMetadata,
@@ -45,8 +56,6 @@ public class MovieSearchController {
                                         entityLinks.linkToSingleResource(MovieRepository.class, searchMetadata.getImdbID()).withRel("movie")
                                 )
                         )
-                        .collect(Collectors.toList())),
-                HttpStatus.OK
-        );
+                        .collect(Collectors.toList()));
     }
 }

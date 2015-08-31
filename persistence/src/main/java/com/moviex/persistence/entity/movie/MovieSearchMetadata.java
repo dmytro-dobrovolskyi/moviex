@@ -3,6 +3,8 @@ package com.moviex.persistence.entity.movie;
 import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import lombok.*;
+import org.hibernate.search.annotations.*;
+import org.hibernate.search.annotations.Index;
 
 import javax.persistence.*;
 
@@ -13,14 +15,18 @@ import javax.persistence.*;
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @EqualsAndHashCode(of = "imdbID")
 @JsonIgnoreProperties(ignoreUnknown = true)
+@Indexed
+@Analyzer(impl = org.apache.lucene.analysis.standard.StandardAnalyzer.class)
 public class MovieSearchMetadata {
 
     @Id
+    @DocumentId
     @Column(name = "\"Id\"")
     @Setter(AccessLevel.PRIVATE)
     private String imdbID;
 
     @Column(name = "\"Title\"")
+    @Field(index = Index.YES)
     private String title;
 
     @Column(name = "\"Year\"")
@@ -77,5 +83,10 @@ public class MovieSearchMetadata {
     @JsonProperty("type")
     public String getType() {
         return type;
+    }
+
+    @Override
+    public String toString() {
+        return title;
     }
 }

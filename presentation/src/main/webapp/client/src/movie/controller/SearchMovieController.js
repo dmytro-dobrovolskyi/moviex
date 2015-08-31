@@ -7,21 +7,23 @@
         function () {
             var SearchMovieController = function ($scope, $log, $stateParams, $state, $location, Movie, SpringDataRestAdapter) {
                 $scope.isMoviesLoading = true;
-                $scope.title.value = $stateParams.title;
+                if ($stateParams.title) {
+                    $scope.title.value = $stateParams.title;
 
-                var isForce = $stateParams.isForce === "true";
+                    var isForce = $stateParams.isForce === "true";
 
-                Movie()
-                    .findByTitle({isForce: isForce, title: $stateParams.title}, function (data, getHeaders) {
-                        SpringDataRestAdapter
-                            .process(data)
-                            .then(function (processedResponse) {
-                                $scope.result = processedResponse._embeddedItems;
-                            });
-                        $scope.isMoviesLoading = !($scope.isMoviesLoaded = true);
-                        $location.search('isForce', null);
-                        $scope.isForceBtnShown = !isForce;
-                    });
+                    Movie()
+                        .findByTitle({isForce: isForce, title: $stateParams.title}, function (data, getHeaders) {
+                            SpringDataRestAdapter
+                                .process(data)
+                                .then(function (processedResponse) {
+                                    $scope.result = processedResponse._embeddedItems;
+                                });
+                            $scope.isMoviesLoading = !($scope.isMoviesLoaded = true);
+                            $location.search('isForce', null);
+                            $scope.isForceBtnShown = !isForce;
+                        });
+                }
             };
             return ["$scope", "$log", "$stateParams", "$state", "$location", "Movie", "SpringDataRestAdapter", SearchMovieController];
         }
