@@ -16,15 +16,14 @@
                                 SpringDataRestAdapter
                                     .process(data)
                                     .then(function (processedResponse) {
-                                        if (processedResponse) {
-                                            $scope.movies = processedResponse._embeddedItems;
-                                        }
+                                        $scope.movies = processedResponse._embeddedItems;
                                     });
                             });
                     }
                 };
 
                 $scope.toDetails = function (selectedItem) {
+                    $scope.title.value = selectedItem.title;
                     $scope.selectedSearchResult = selectedItem;
                     $state.go('root.find-movie.details', {movieLink: encodeURIComponent(selectedItem._links.movie.href)});
                 };

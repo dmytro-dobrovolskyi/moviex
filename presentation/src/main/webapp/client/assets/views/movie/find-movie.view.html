@@ -8,9 +8,10 @@
             <div class="col-md-8 col-md-offset-2 form-group">
                 <input type="text" class="form-control input-lg" placeholder="Movie title" ng-model="title.value"
                        ng-change="searchMovie(title.value)"
-                       typeahead="movie as movie.title for movie in movies | filter: $viewValue"
+                       typeahead="movie as movie.title for movie in movies"
                        typeahead-focus-first="false"
                        typeahead-on-select="toDetails($item)"
+                       typeahead-min-length="2"
                        required>
             </div>
             <div class="col-md-2 col-md-offset-5 text-center form-group">

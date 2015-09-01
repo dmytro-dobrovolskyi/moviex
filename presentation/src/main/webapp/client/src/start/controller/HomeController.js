@@ -11,13 +11,13 @@
                 $scope.slides =
                     [
                         {
-                            image: "client/assets/css/images/slides/game-of-thrones.jpg"
+                            image: "client/assets/css/images/slides/game-of-thrones.png"
                         },
                         {
-                            image: "client/assets/css/images/slides/hannibal.jpg"
+                            image: "client/assets/css/images/slides/hannibal.png"
                         },
                         {
-                            image: "client/assets/css/images/slides/true-detective.jpg"
+                            image: "client/assets/css/images/slides/true-detective.png"
                         }
                     ];
                 $rootScope.isLoaded = true;
