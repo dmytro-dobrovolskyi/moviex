@@ -18,7 +18,7 @@
     <modules>
         <module>persistence</module>
         <module>business</module>
-        <module>presentation</module>
+        <module>web</module>
     </modules>
 
     <properties>

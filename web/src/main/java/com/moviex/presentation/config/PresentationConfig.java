@@ -23,7 +23,7 @@ public class PresentationConfig extends WebMvcConfigurerAdapter {
     public void addResourceHandlers(ResourceHandlerRegistry registry) {
         registry
                 .addResourceHandler("/client/**")
-                .addResourceLocations("file:presentation/src/main/webapp/client/");
+                .addResourceLocations("file:web/src/main/webapp/client/");
     }
 
     @Bean
