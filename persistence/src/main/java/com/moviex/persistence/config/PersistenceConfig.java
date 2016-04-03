@@ -16,7 +16,7 @@ import java.util.Map;
 
 @Configuration
 @EnableJpaRepositories("com.moviex.persistence.repository")
-@PropertySource("classpath:application.properties")
+@PropertySource("classpath:app.properties")
 public class PersistenceConfig {
 
     @Autowired

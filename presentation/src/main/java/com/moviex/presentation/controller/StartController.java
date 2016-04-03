@@ -7,7 +7,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 public class StartController {
 
     @RequestMapping("/")
-    public String getStartPage() {
+    public String index() {
         return "client/index.html";
     }
 }
