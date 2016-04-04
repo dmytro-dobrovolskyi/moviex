@@ -1,4 +1,4 @@
-package com.moviex.presentation.config;
+package com.moviex.web.config;
 
 import org.springframework.web.servlet.support.AbstractAnnotationConfigDispatcherServletInitializer;
 
@@ -16,6 +16,6 @@ public class DispatcherServletInitializer extends AbstractAnnotationConfigDispat
 
     @Override
     protected Class<?>[] getServletConfigClasses() {
-        return new Class<?>[]{PresentationConfig.class};
+        return new Class<?>[]{WebConfig.class};
     }
 }

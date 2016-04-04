@@ -1,4 +1,4 @@
-package com.moviex.presentation.advice;
+package com.moviex.web.advice;
 
 import com.moviex.business.exception.MovieRequestFailedException;
 import org.springframework.hateoas.VndErrors;

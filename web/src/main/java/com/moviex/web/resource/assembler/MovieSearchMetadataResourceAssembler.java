@@ -1,7 +1,7 @@
-package com.moviex.presentation.resource.assembler;
+package com.moviex.web.resource.assembler;
 
 import com.moviex.persistence.entity.movie.MovieSearchMetadata;
-import com.moviex.presentation.resource.MovieSearchMetadataResource;
+import com.moviex.web.resource.MovieSearchMetadataResource;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.hateoas.EntityLinks;
 import org.springframework.hateoas.mvc.ResourceAssemblerSupport;

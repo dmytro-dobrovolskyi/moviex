@@ -1,4 +1,4 @@
-package com.moviex.presentation.resource;
+package com.moviex.web.resource;
 
 import com.moviex.persistence.entity.movie.MovieSearchMetadata;
 import lombok.Getter;

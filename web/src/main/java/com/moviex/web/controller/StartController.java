@@ -1,4 +1,4 @@
-package com.moviex.presentation.controller;
+package com.moviex.web.controller;
 
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;

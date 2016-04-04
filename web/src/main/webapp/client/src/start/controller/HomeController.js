@@ -11,12 +11,15 @@
                 $scope.slides =
                     [
                         {
+                            id: 0,
                             image: "client/assets/css/images/slides/game-of-thrones.png"
                         },
                         {
+                            id: 1,
                             image: "client/assets/css/images/slides/hannibal.png"
                         },
                         {
+                            id: 2,
                             image: "client/assets/css/images/slides/true-detective.png"
                         }
                     ];

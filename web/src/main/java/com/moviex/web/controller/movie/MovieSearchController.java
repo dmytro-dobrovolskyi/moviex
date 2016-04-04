@@ -1,4 +1,4 @@
-package com.moviex.presentation.controller.movie;
+package com.moviex.web.controller.movie;
 
 import com.moviex.business.service.MovieSearchService;
 import com.moviex.persistence.entity.movie.MovieSearchMetadata;
