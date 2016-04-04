@@ -49,6 +49,7 @@
                 ],
                 function (StartModule, MovieModule) {
                     var appName = "moviex";
+                    
                     angular.module(appName,
                         [
                             "ui.router",
@@ -62,6 +63,7 @@
                         .config(['$uibTooltipProvider', function ($uibTooltipProvider) {
                             $uibTooltipProvider.options({animation: false});
                         }]);
+                    
                     angular.bootstrap(document.getElementById(appName), [appName]);
                 })
         }

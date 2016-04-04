@@ -11,7 +11,7 @@
                         url: "/find-movie",
                         views: {
                             "container@": {
-                                templateUrl: "client/assets/views/movie/find-movie.view.html",
+                                templateUrl: "assets/views/movie/find-movie.view.html",
                                 controller: "FindMovieController"
                             }
                         }
@@ -21,7 +21,7 @@
                         reloadOnSearch: false,
                         views: {
                             "content": {
-                                templateUrl: "client/assets/views/movie/movie-search-result.view.html",
+                                templateUrl: "assets/views/movie/movie-search-result.view.html",
                                 controller: "MovieSearchRequestController"
                             }
                         }
@@ -30,7 +30,7 @@
                         url: "/details/{movieLink}",
                         views: {
                             "content": {
-                                templateUrl: "client/assets/views/movie/movie-details.view.html",
+                                templateUrl: "assets/views/movie/movie-details.view.html",
                                 controller: "MovieDetailsController"
                             }
                         }

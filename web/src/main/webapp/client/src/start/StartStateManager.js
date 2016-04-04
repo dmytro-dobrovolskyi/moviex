@@ -12,7 +12,7 @@
                     .state("root", {
                         views: {
                             navbar: {
-                                templateUrl: "client/assets/views/start/navbar.view.html",
+                                templateUrl: "assets/views/start/navbar.view.html",
                                 controller: function ($log, $scope) {
                                     $scope.isCollapsed = true;
                                 }
@@ -23,7 +23,7 @@
                         url: "/home",
                         views: {
                             "container@": {
-                                templateUrl: "client/assets/views/start/home.view.html",
+                                templateUrl: "assets/views/start/home.view.html",
                                 controller: "HomeController"
                             }
                         }

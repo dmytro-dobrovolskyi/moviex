@@ -29,9 +29,5 @@
         }
     );
 
-    var ResultInfo = {
-        OK: "OK",
-        BY_WORD_REQUEST_REQUIRED: "BY_WORD_REQUEST_REQUIRED"
-    }
 })
 (define);
