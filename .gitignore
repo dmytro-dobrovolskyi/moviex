@@ -2,4 +2,5 @@
 /.idea
 **/target
 **/lib
-*.log
+**/node
+**/node_modules
