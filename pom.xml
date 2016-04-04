@@ -16,9 +16,8 @@
     </parent>
 
     <modules>
-        <module>persistence</module>
-        <module>business</module>
-        <module>web</module>
+        <module>moviex-server</module>
+        <module>moviex-client</module>
     </modules>
 
     <properties>
