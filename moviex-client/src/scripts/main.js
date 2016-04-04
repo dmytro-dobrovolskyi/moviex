@@ -6,12 +6,12 @@
      */
     require.config({
         paths: {
-            "angular": "../lib/angular/angular",
-            "uiRouter": "../lib/angular-ui-router/release/angular-ui-router.min",
-            "ngBootstrap": "../lib/angular-bootstrap/ui-bootstrap-tpls.min",
-            "ngResource": "../lib/angular-resource/angular-resource.min",
-            "ngSpingHateoas": "../lib/angular-spring-data-rest/dist/angular-spring-data-rest.min",
-            "ngAnimate": "../lib/angular-animate/angular-animate.min"
+            "angular": "../angular/angular",
+            "uiRouter": "../angular-ui-router/release/angular-ui-router.min",
+            "ngBootstrap": "../angular-bootstrap/ui-bootstrap-tpls.min",
+            "ngResource": "../angular-resource/angular-resource.min",
+            "ngSpingHateoas": "../angular-spring-data-rest/dist/angular-spring-data-rest.min",
+            "ngAnimate": "../angular-animate/angular-animate.min"
         },
         shim: {
             "uiRouter": {
