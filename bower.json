@@ -10,8 +10,5 @@
         "angular-resource": "latest",
         "angular-spring-data-rest": "latest",
         "angular-animate": "latest"
-    },
-    "resolutions": {
-        "angular": "1.4.4"
     }
 }

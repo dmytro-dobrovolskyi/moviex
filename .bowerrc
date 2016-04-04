@@ -1,4 +1,4 @@
 {
-  "directory": "presentation/src/main/webapp/client/lib",
+  "directory": "web/src/main/webapp/client/lib",
   "json": "bower.json"
 }
