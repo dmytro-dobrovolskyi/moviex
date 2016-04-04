@@ -20,7 +20,6 @@ public class MovieSearchMetadataRepositoryImpl implements MovieSearchMetadataRep
     private EntityManager entityManager;
 
     @Override
-    @SuppressWarnings("unchecked")
     public List<MovieSearchMetadata> searchByTitle(String title, boolean isAdvanced) {
         FullTextEntityManager fullTextEntityManager = Search.getFullTextEntityManager(entityManager);
 
@@ -49,8 +48,11 @@ public class MovieSearchMetadataRepositoryImpl implements MovieSearchMetadataRep
         }
         fullTextEntityManager.createFullTextQuery(query, MovieSearchMetadata.class);
 
-        return fullTextEntityManager
+        @SuppressWarnings("unchecked")
+        List<MovieSearchMetadata> resultList = fullTextEntityManager
                 .createFullTextQuery(query, MovieSearchMetadata.class)
                 .getResultList();
+
+        return resultList;
     }
 }

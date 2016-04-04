@@ -29,28 +29,26 @@ public class MovieSearchController {
     private MovieSearchService movieSearchService;
 
     @Autowired
-    @Qualifier(value = "entityLinks")   //RepositoryEntityLinks injects here
+    @Qualifier(value = "entityLinks")   // RepositoryEntityLinks injects here
     private EntityLinks entityLinks;
 
     @RequestMapping(value = "/by-title")
-    public
     @ResponseBody
     Resources<Resource> findByTitle(@RequestParam String title, @RequestParam Boolean isForce) {
         return toMovieResources(movieSearchService.findByTitle(title, isForce));
     }
 
     @RequestMapping(value = "/advanced/by-title")
-    public
     @ResponseBody
     Resources<Resource> findByTitle(@RequestParam String title) {
         return toMovieResources(movieSearchService.findByTitle(title));
     }
 
     private Resources<Resource> toMovieResources(List<MovieSearchMetadata> movieMetadataList) {
-        return new Resources<Resource>(
+        return new Resources<>(
                 movieMetadataList
                         .stream()
-                        .map(searchMetadata -> new Resource<MovieSearchMetadata>(
+                        .map(searchMetadata -> new Resource<>(
                                         searchMetadata,
                                         entityLinks.linkToSingleResource(MovieSearchMetadataRepository.class, searchMetadata.getImdbID()).withSelfRel(),
                                         entityLinks.linkToSingleResource(MovieRepository.class, searchMetadata.getImdbID()).withRel("movie")
