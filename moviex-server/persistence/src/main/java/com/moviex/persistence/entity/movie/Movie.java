@@ -24,6 +24,7 @@ public class Movie {
     private String director;
     private String writer;
     private String actors;
+    private String imdbRating;
 
     @Setter
     private String imdbVotes;

@@ -17,7 +17,7 @@
                         }
                     })
                     .state("root.find-movie.search-result", {
-                        url: "/?title?isForce",
+                        url: "/?title?tryHarder",
                         reloadOnSearch: false,
                         views: {
                             "content": {

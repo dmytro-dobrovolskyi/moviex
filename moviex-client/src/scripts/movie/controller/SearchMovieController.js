@@ -20,7 +20,7 @@
                                     $scope.result = processedResponse._embeddedItems;
                                 });
                             $scope.isMoviesLoading = !($scope.isMoviesLoaded = true);
-                            $scope.isForceBtnShown = !tryHarder;
+                            $scope.isTryHarderBtnShown = !tryHarder;
                         });
                 }
             };

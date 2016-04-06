@@ -23,7 +23,6 @@ public class MovieSearchMetadata {
     private String year;
     private String type;
     private String poster;
-    private String imdbRating;
 
     @OneToOne(fetch = FetchType.LAZY)
     @PrimaryKeyJoinColumn

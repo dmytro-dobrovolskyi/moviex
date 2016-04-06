@@ -1,30 +1,29 @@
 package com.moviex.business.service.impl;
 
-import com.fasterxml.jackson.databind.ObjectMapper;
 import com.moviex.business.service.MovieService;
-import com.moviex.business.service.util.ObjectMapperUtil;
 import com.moviex.persistence.entity.movie.Movie;
 import com.moviex.persistence.entity.movie.MovieSearchMetadata;
 import com.moviex.persistence.repository.MovieRepository;
-import org.slf4j.Logger;
-import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.scheduling.annotation.Async;
 import org.springframework.stereotype.Service;
 import org.springframework.transaction.annotation.Propagation;
 import org.springframework.transaction.annotation.Transactional;
+import org.springframework.web.client.RestOperations;
 
 import java.util.List;
 import java.util.stream.Collectors;
-import java.util.stream.IntStream;
+
+import static com.moviex.business.service.impl.MovieSearchServiceImpl.IMDB_URL;
 
 @Service
 public class MovieServiceImpl implements MovieService {
 
-    private static final Logger logger = LoggerFactory.getLogger(MovieServiceImpl.class);
-
     @Autowired
     private MovieRepository movieRepository;
+
+    @Autowired
+    private RestOperations restOperations;
 
     @Override
     @Transactional(readOnly = true)
@@ -52,21 +51,13 @@ public class MovieServiceImpl implements MovieService {
 
     @Async
     @Override
-    public void processUnmappedMovies(List<String> unmappedResultList, List<MovieSearchMetadata> searchMetadataList) {
-        List<Movie> movies = unmappedResultList
-                .stream()
-                .map(unmappedResult -> ObjectMapperUtil.mapFromString(unmappedResult, Movie.class))
+    public void loadMoviesBasedOnMetadata(List<MovieSearchMetadata> searchMetadataList) {
+        List<Movie> movies = searchMetadataList.parallelStream()
+                .map(metadata -> restOperations.getForObject(
+                        IMDB_URL + "/?plot=full&i=" + metadata.getImdbID(),
+                        Movie.class)
+                )
                 .collect(Collectors.toList());
-
-        IntStream
-                .range(0, movies.size())
-                .forEach(index -> {
-                    Movie movie = movies.get(index);
-                    MovieSearchMetadata searchMetadata = searchMetadataList.get(index);
-
-                    movie.setMovieSearchMetadata(searchMetadata);
-                    searchMetadata.setMovie(movie);
-                });
         upsert(movies);
     }
 }

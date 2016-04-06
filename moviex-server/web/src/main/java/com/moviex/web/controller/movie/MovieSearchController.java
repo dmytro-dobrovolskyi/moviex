@@ -37,7 +37,7 @@ public class MovieSearchController {
     @ResponseBody
     Resources<Resource> findByTitle(@PathVariable String title, @RequestParam(required = false) boolean tryHarder) {
         if (tryHarder) {
-            return toMovieResources(movieSearchService.findByTitleSmartly(title));
+            return toMovieResources(movieSearchService.findByTitleOnImdb(title));
         }
         return toMovieResources(movieSearchService.findByTitle(title));
     }
