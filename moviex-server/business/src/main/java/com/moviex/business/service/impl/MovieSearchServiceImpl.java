@@ -36,23 +36,17 @@ public class MovieSearchServiceImpl implements MovieSearchService {
 
     @Override
     @Transactional(readOnly = true)
-    public List<MovieSearchMetadata> findByTitle(String title, Boolean isForce) {
-        List<MovieSearchMetadata> searchResult;
+    public List<MovieSearchMetadata> findByTitle(String title) {
+        List<MovieSearchMetadata> searchResult = movieSearchMetadataRepository.findByTitleContainingIgnoreCase(title);
 
-        if (isForce || (searchResult = movieSearchMetadataRepository.searchByTitle(title, false)).isEmpty()) {
-            searchResult = requestByTitle(title);
+        if (searchResult.isEmpty()) {
+            searchResult = findByTitleOnImdb(title);
         }
         return searchResult;
     }
 
     @Override
-    @Transactional(readOnly = true)
-    public List<MovieSearchMetadata> findByTitle(String title) {
-        return movieSearchMetadataRepository.searchByTitle(title, true);
-    }
-
-    @Override
-    public List<MovieSearchMetadata> requestByTitle(String title) {
+    public List<MovieSearchMetadata> findByTitleOnImdb(String title) {
         RequestResultHolder searchRequestResult = restOperations.getForObject(IMDB_URL + "/?s=" + title, RequestResultHolder.class);
 
         List<MovieSearchMetadata> searchMetadataList = new ArrayList<>();
@@ -74,6 +68,12 @@ public class MovieSearchServiceImpl implements MovieSearchService {
             movieService.processUnmappedMovies(unmappedResultList, searchMetadataList);
         }
         return searchMetadataList;
+    }
+
+    @Override
+    public List<MovieSearchMetadata> findByTitleSmartly(String title) {
+        // TODO
+        return findByTitle(title);
     }
 
     @Getter

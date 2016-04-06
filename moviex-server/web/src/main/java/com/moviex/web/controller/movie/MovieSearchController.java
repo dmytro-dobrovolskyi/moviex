@@ -12,6 +12,7 @@ import org.springframework.data.rest.webmvc.RepositoryRestController;
 import org.springframework.hateoas.EntityLinks;
 import org.springframework.hateoas.Resource;
 import org.springframework.hateoas.Resources;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
@@ -32,15 +33,18 @@ public class MovieSearchController {
     @Qualifier(value = "entityLinks")   // RepositoryEntityLinks injects here
     private EntityLinks entityLinks;
 
-    @RequestMapping(value = "/by-title")
+    @RequestMapping(value = "/by-title/{title}")
     @ResponseBody
-    Resources<Resource> findByTitle(@RequestParam String title, @RequestParam Boolean isForce) {
-        return toMovieResources(movieSearchService.findByTitle(title, isForce));
+    Resources<Resource> findByTitle(@PathVariable String title, @RequestParam(required = false) boolean tryHarder) {
+        if (tryHarder) {
+            return toMovieResources(movieSearchService.findByTitleSmartly(title));
+        }
+        return toMovieResources(movieSearchService.findByTitle(title));
     }
 
-    @RequestMapping(value = "/advanced/by-title")
+    @RequestMapping(value = "/smart/by-title/{title}")
     @ResponseBody
-    Resources<Resource> findByTitle(@RequestParam String title) {
+    Resources<Resource> findByTitleSmartly(@PathVariable String title) {
         return toMovieResources(movieSearchService.findByTitle(title));
     }
 

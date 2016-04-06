@@ -5,14 +5,13 @@
     define(
         [],
         function () {
-            var Movie = function ($resource, $log) {
+            var Movie = function ($resource) {
                 return function (url) {
                     return $resource(
                         url, null,
                         {
-                            searchByTitle: {method: "GET", url: "movie/search/advanced/by-title"},
-                            findByTitle: {method: "GET", url: "movie/search/by-title"},
-                            requestByWordAndPersist: {method: "POST", url: "movie/persistence/request/by-word"}
+                            searchByTitle: {method: "GET", url: "movie/search/smart/by-title/:title"},
+                            findByTitle: {method: "GET", url: "movie/search/by-title/:title"}
                         });
                 };
             };

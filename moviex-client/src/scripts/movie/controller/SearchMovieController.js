@@ -10,18 +10,17 @@
                 if ($stateParams.title) {
                     $scope.title.value = $stateParams.title;
 
-                    var isForce = $stateParams.isForce === "true";
+                    var tryHarder = $stateParams.tryHarder === "true";
 
-                    Movie()
-                        .findByTitle({isForce: isForce, title: $stateParams.title}, function (data, getHeaders) {
+                    new Movie()
+                        .findByTitle({tryHarder: tryHarder, title: $stateParams.title}, function (data) {
                             SpringDataRestAdapter
                                 .process(data)
                                 .then(function (processedResponse) {
                                     $scope.result = processedResponse._embeddedItems;
                                 });
                             $scope.isMoviesLoading = !($scope.isMoviesLoaded = true);
-                            $location.search('isForce', null);
-                            $scope.isForceBtnShown = !isForce;
+                            $scope.isForceBtnShown = !tryHarder;
                         });
                 }
             };
