@@ -9,7 +9,6 @@ import org.hibernate.search.annotations.Index;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "\"MovieSearchMetadata\"")
 @Getter
 @Setter
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
@@ -21,24 +20,15 @@ public class MovieSearchMetadata {
 
     @Id
     @DocumentId
-    @Column(name = "\"Id\"")
     @Setter(AccessLevel.PRIVATE)
     private String imdbID;
 
-    @Column(name = "\"Title\"")
     @Field(index = Index.YES)
     private String title;
 
-    @Column(name = "\"Year\"")
     private String year;
-
-    @Column(name = "\"Type\"")
     private String type;
-
-    @Column(name = "\"Poster\"")
     private String poster;
-
-    @Column(name = "\"ImdbRating\"")
     private String imdbRating;
 
     @OneToOne(fetch = FetchType.LAZY)
@@ -80,7 +70,6 @@ public class MovieSearchMetadata {
         return poster;
     }
 
-    @JsonProperty("type")
     public String getType() {
         return type;
     }

@@ -8,7 +8,6 @@ import lombok.*;
 import javax.persistence.*;
 
 @Entity
-@Table(name = "\"Movie\"")
 @NoArgsConstructor(access = AccessLevel.PRIVATE)
 @EqualsAndHashCode(of = "imdbID")
 @JsonIgnoreProperties(ignoreUnknown = true)
@@ -17,37 +16,20 @@ import javax.persistence.*;
 public class Movie {
 
     @Id
-    @Column(name = "\"Id\"")
     @Setter(AccessLevel.PRIVATE)
+
     private String imdbID;
-
-    @Column(name = "\"Runtime\"")
     private String runtime;
-
-    @Column(name = "\"Genre\"")
     private String genre;
-
-    @Column(name = "\"Director\"")
-    @Lob
     private String director;
-
-    @Column(name = "\"Writer\"")
-    @Lob
     private String writer;
-
-    @Column(name = "\"Actors\"")
-    @Lob
     private String actors;
 
-    @Column(name = "\"ImdbVotes\"")
     @Setter
     private String imdbVotes;
 
-    @Column(name = "\"Description\"")
     @Lob
     private String description;
-
-    @Column(name = "\"Country\"")
     private String country;
 
     @OneToOne(cascade = CascadeType.ALL, fetch = FetchType.LAZY, mappedBy = "movie")
