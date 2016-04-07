@@ -17,7 +17,6 @@ public class Movie {
 
     @Id
     @Setter(AccessLevel.PRIVATE)
-
     private String imdbID;
     private String runtime;
     private String genre;

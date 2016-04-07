@@ -53,10 +53,15 @@ public class MovieServiceImpl implements MovieService {
     @Override
     public void loadMoviesBasedOnMetadata(List<MovieSearchMetadata> searchMetadataList) {
         List<Movie> movies = searchMetadataList.parallelStream()
-                .map(metadata -> restOperations.getForObject(
-                        IMDB_URL + "/?plot=full&i=" + metadata.getImdbID(),
-                        Movie.class)
-                )
+                .map(metadata -> {
+                    Movie movie = restOperations.getForObject(
+                            IMDB_URL + "/?plot=full&i=" + metadata.getImdbID(),
+                            Movie.class);
+                    metadata.setMovie(movie);
+                    movie.setMovieSearchMetadata(metadata);
+
+                    return movie;
+                })
                 .collect(Collectors.toList());
         upsert(movies);
     }
