@@ -60,6 +60,9 @@
                             StartModule,
                             MovieModule
                         ])
+                        .run(["$rootScope", function ($rootScope) {
+                            $rootScope.resourcesUrl = "https://googledrive.com/host/0B5bvhq7seDzuY3hWbTltYXBia28/"
+                        }])
                         .config(['$uibTooltipProvider', function ($uibTooltipProvider) {
                             $uibTooltipProvider.options({animation: false});
                         }]);
