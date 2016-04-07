@@ -5,6 +5,7 @@
      * Defines alias in 'path' and no-AMD dependencies in 'shim'.
      */
     require.config({
+        waitSeconds: 200,
         paths: {
             "angular": "../angular/angular",
             "uiRouter": "../angular-ui-router/release/angular-ui-router.min",
