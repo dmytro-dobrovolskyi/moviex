@@ -14,10 +14,10 @@ import org.springframework.web.client.RestOperations;
 import java.util.List;
 import java.util.stream.Collectors;
 
-import static com.moviex.business.service.impl.MovieSearchServiceImpl.IMDB_URL;
+import static com.moviex.business.service.impl.DefaultMovieSearchService.IMDB_URL;
 
 @Service
-public class MovieServiceImpl implements MovieService {
+public class DefaultMovieService implements MovieService {
 
     @Autowired
     private MovieRepository movieRepository;

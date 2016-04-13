@@ -35,24 +35,25 @@ public class AsyncImgPublicationService implements ImgPublicationService {
 
     @Override
     public String publishImg(String imgUrl) {
-        asyncImgPublisher.publishImg(imgUrl);
+        String imgId = constructImgId(imgUrl);
+
+        asyncImgPublisher.publishImg(imgUrl, imgId);
 
         return String.format("%s%s/%s",
                 driveProperties.getCdnUrl(),
                 driveProperties.getImagesFolderId(),
-                constructImgId(imgUrl)
+                imgId
         );
     }
 
     public static String constructImgId(String imgUrl) {
         String imgName = StringUtils.substringBefore(StringUtils.substringAfterLast(imgUrl, "/"), "?");
         String ext = org.springframework.util.StringUtils.getFilenameExtension(imgName);
-        if (ext == null) {
-            return imgName + imgUrl.hashCode();
-        }
-        return new StringBuilder(imgName)
-                .insert(StringUtils.lastIndexOf(imgName, "."), "-" + Math.abs(imgUrl.hashCode()))
-                .toString();
+        imgName = StringUtils.remove(imgName, ext);
+        imgName = StringUtils.remove(imgName, '.');
+        int urlHashCode = Math.abs(imgUrl.hashCode());
+
+        return imgName + "-" + urlHashCode + (ext == null ? "" : ext);
     }
 }
 
@@ -77,9 +78,8 @@ class AsyncImgPublisher {
 
     @Async
     @SneakyThrows
-    public void publishImg(String imgUrl) {
+    public void publishImg(String imgUrl, String imgId) {
         try (InputStream imgStream = imgDownloadService.downloadAsInputStream(imgUrl)) {
-            String imgId = AsyncImgPublicationService.constructImgId(imgUrl);
             Image image = imageRepository.findOne(imgId);
 
             if (image == null) {

@@ -1,5 +1,6 @@
 package com.moviex.business.service.impl;
 
+import com.fasterxml.jackson.annotation.JsonIgnoreProperties;
 import com.fasterxml.jackson.annotation.JsonProperty;
 import com.moviex.business.service.MovieSearchService;
 import com.moviex.business.service.MovieService;
@@ -19,8 +20,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 @Service
-public class MovieSearchServiceImpl implements MovieSearchService, Loggable {
-    private static final Logger logger = LoggerFactory.getLogger(MovieSearchServiceImpl.class);
+public class DefaultMovieSearchService implements MovieSearchService, Loggable {
+    private static final Logger logger = LoggerFactory.getLogger(DefaultMovieSearchService.class);
     public static final String IMDB_URL = "http://www.omdbapi.com";
 
     @Autowired
@@ -58,13 +59,13 @@ public class MovieSearchServiceImpl implements MovieSearchService, Loggable {
 
     @Override
     public List<MovieSearchMetadata> findByTitleSmartly(String title) {
-        // TODO
-        return findByTitle(title);
+        return movieSearchMetadataRepository.findByTitleContainingIgnoreCase(title);
     }
 
     @Getter
     @Setter
-    private static class RequestResultHolder {
+    @JsonIgnoreProperties(ignoreUnknown = true)
+    public static class RequestResultHolder {
         @JsonProperty("Search")
         private List<MovieSearchMetadata>  movieSearchMetadataList;
 
