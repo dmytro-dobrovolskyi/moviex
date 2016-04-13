@@ -3,6 +3,9 @@ package com.moviex.imgservice.service.impl;
 import com.google.api.client.http.InputStreamContent;
 import com.google.api.services.drive.Drive;
 import com.google.api.services.drive.model.File;
+import com.moviex.imgservice.config.GoogleDriveProperties;
+import com.moviex.imgservice.entity.Image;
+import com.moviex.imgservice.repository.ImageRepository;
 import com.moviex.imgservice.service.ImgDownloadService;
 import com.moviex.imgservice.service.ImgPublicationService;
 import lombok.SneakyThrows;
@@ -12,6 +15,7 @@ import org.springframework.stereotype.Service;
 
 import java.io.IOException;
 import java.io.InputStream;
+import java.time.LocalTime;
 import java.util.Collections;
 
 @Service
@@ -21,25 +25,39 @@ public class ImgPublicationServiceImpl implements ImgPublicationService {
     private Drive driveService;
 
     @Autowired
+    private GoogleDriveProperties driveProperties;
+
+    @Autowired
     private ImgDownloadService imgDownloadService;
+
+    @Autowired
+    private ImageRepository imageRepository;
 
     @Override
     @SneakyThrows(IOException.class)
-    public String publishImg(String imgUrl) {
+    public Image publishImg(String imgUrl) {
         try (InputStream imgStream = imgDownloadService.downloadAsInputStream(imgUrl)) {
-            String imgId = imgUrl.hashCode() + StringUtils.substringAfterLast(imgUrl, "/");
+            String imgId = constructImgId(imgUrl);
+            Image image = imageRepository.findOne(imgId);
 
-            if (!driveService.files().get(imgId).isEmpty()) {
-
+            if (image == null) {
                 driveService.files()
                         .create(new File()
-                                        .setParents(Collections.singletonList("0B5bvhq7seDzuM3dvR05ZUGFTcXc"))
-                                        .setName(imgId)
-                                        .setId(imgId),
+                                        .setParents(Collections.singletonList(driveProperties.getImagesFolderId()))
+                                        .setName(imgId),
                                 new InputStreamContent("*/*", imgStream))
                         .execute();
+                image = new Image(imgId);
             }
-            return imgId;
+            image.setLastTimeRequested(LocalTime.now());
+            return image;
         }
+    }
+
+    private String constructImgId(String imgUrl) {
+        String imgName = StringUtils.substringAfterLast(imgUrl, "/");
+        return new StringBuilder(imgName)
+                .insert(StringUtils.lastIndexOf(imgName, "."), "-" + Math.abs(imgUrl.hashCode()))
+                .toString();
     }
 }

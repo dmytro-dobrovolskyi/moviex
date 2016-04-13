@@ -1,5 +1,7 @@
 package com.moviex.imgservice.service;
 
+import com.moviex.imgservice.entity.Image;
+
 public interface ImgPublicationService {
-    String publishImg(String imgUrl);
+    Image publishImg(String imgUrl);
 }
