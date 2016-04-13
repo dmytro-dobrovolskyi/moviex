@@ -62,7 +62,9 @@
                             MovieModule
                         ])
                         .run(["$rootScope", function ($rootScope) {
-                            $rootScope.resourcesUrl = "https://googledrive.com/host/0B5bvhq7seDzuY3hWbTltYXBia28/"
+                            var cdnUrl = "https://googledrive.com/host/";
+                            $rootScope.cdnCustomImagesUrl = cdnUrl + "0B5bvhq7seDzuY3hWbTltYXBia28/";
+                            $rootScope.cdnPublicImagesUrl = cdnUrl + "0B5bvhq7seDzuM3dvR05ZUGFTcXc/";
                         }])
                         .config(['$uibTooltipProvider', function ($uibTooltipProvider) {
                             $uibTooltipProvider.options({animation: false});

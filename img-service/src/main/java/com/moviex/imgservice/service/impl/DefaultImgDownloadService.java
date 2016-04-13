@@ -10,7 +10,11 @@ import java.io.InputStream;
 import java.net.URL;
 
 @Service
-public class ImgDownloadImpl implements ImgDownloadService {
+public class DefaultImgDownloadService implements ImgDownloadService {
+
+    private DefaultImgDownloadService() {
+
+    }
 
     @Override
     @SneakyThrows(IOException.class)

@@ -14,7 +14,7 @@
 
                     $scope.slides.push({
                         id: i,
-                        image: $rootScope.resourcesUrl + "images/slides/"+ i + ".png"
+                        image: $rootScope.cdnCustomImagesUrl + "images/slides/"+ i + ".png"
                     });
                 }
 
