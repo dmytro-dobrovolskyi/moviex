@@ -54,8 +54,12 @@ public class ImgPublicationServiceImpl implements ImgPublicationService {
         }
     }
 
-    private String constructImgId(String imgUrl) {
-        String imgName = StringUtils.substringAfterLast(imgUrl, "/");
+    private static String constructImgId(String imgUrl) {
+        String imgName = StringUtils.substringBefore(StringUtils.substringAfterLast(imgUrl, "/"), "?");
+        String ext = org.springframework.util.StringUtils.getFilenameExtension(imgName);
+        if (ext == null) {
+            return imgName + imgUrl.hashCode();
+        }
         return new StringBuilder(imgName)
                 .insert(StringUtils.lastIndexOf(imgName, "."), "-" + Math.abs(imgUrl.hashCode()))
                 .toString();
